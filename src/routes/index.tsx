@@ -627,8 +627,7 @@ function Videos() {
               Stunning aerial footage captured in demanding light conditions.
             </p>
           </div>
-          <button className="absolute bottom-5 left-5 mt-4 hidden" />
-          <span className="absolute bottom-5 left-5 translate-y-16 sm:translate-y-0 sm:right-5 sm:left-auto sm:bottom-5 grid size-12 place-items-center rounded-full bg-lime text-lime-foreground">
+          <span className="absolute right-5 bottom-5 grid size-12 place-items-center rounded-full bg-lime text-lime-foreground">
             <Play className="size-5 fill-current" />
           </span>
         </div>
