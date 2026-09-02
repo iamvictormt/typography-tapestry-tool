@@ -1,0 +1,332 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum AccountProfile {
+  CONTRACTOR
+  OWNER
+  BOTH
+  ADMIN
+}
+
+enum VerificationStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  SUSPENDED
+}
+
+enum ListingStatus {
+  DRAFT
+  PENDING_REVIEW
+  ACTIVE
+  PAUSED
+  REJECTED
+  ARCHIVED
+}
+
+enum AvailabilityStatus {
+  AVAILABLE
+  BUSY
+  UNAVAILABLE
+}
+
+enum PriceUnit {
+  HOUR
+  HECTARE
+  DAY
+}
+
+enum DemandStatus {
+  OPEN
+  PROPOSALS_RECEIVED
+  NEGOTIATING
+  ACCEPTED
+  IN_PROGRESS
+  COMPLETED
+  REVIEWED
+  CANCELLED
+}
+
+enum ProposalStatus {
+  SENT
+  VIEWED
+  NEGOTIATING
+  ACCEPTED
+  DECLINED
+  EXPIRED
+  CANCELLED
+}
+
+enum ReservationStatus {
+  RESERVED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
+
+enum MessageChannel {
+  PLATFORM
+  WHATSAPP
+}
+
+model User {
+  id                 String             @id @default(cuid())
+  name               String
+  email              String?            @unique
+  phone              String             @unique
+  whatsapp           String?
+  document           String             @unique
+  city               String
+  state              String
+  profile            AccountProfile     @default(CONTRACTOR)
+  imageUrl           String?
+  passwordHash       String?
+  phoneVerifiedAt    DateTime?
+  termsAcceptedAt    DateTime?
+  verificationStatus VerificationStatus @default(PENDING)
+  createdAt          DateTime           @default(now())
+  updatedAt          DateTime           @updatedAt
+
+  machines                Machine[]      @relation("OwnerMachines")
+  demands                 Demand[]       @relation("ContractorDemands")
+  proposals               Proposal[]     @relation("OwnerProposals")
+  contractorReservations  Reservation[]  @relation("ContractorReservations")
+  ownerReservations       Reservation[]  @relation("OwnerReservations")
+  contractorConversations Conversation[] @relation("ContractorConversations")
+  ownerConversations      Conversation[] @relation("OwnerConversations")
+  sentMessages            Message[]      @relation("SentMessages")
+  reviewsWritten          Review[]       @relation("ReviewsWritten")
+  reviewsReceived         Review[]       @relation("ReviewsReceived")
+
+  @@index([city, state])
+  @@index([profile, verificationStatus])
+}
+
+model MachineCategory {
+  id        String    @id @default(cuid())
+  name      String    @unique
+  slug      String    @unique
+  isActive  Boolean   @default(true)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  machines  Machine[]
+  demands   Demand[]
+}
+
+model Machine {
+  id                 String             @id @default(cuid())
+  ownerId            String
+  categoryId         String
+  brand              String
+  model              String
+  year               Int?
+  powerHp            Int?
+  locationCity       String
+  locationState      String
+  latitude           Decimal?           @db.Decimal(9, 6)
+  longitude          Decimal?           @db.Decimal(9, 6)
+  priceAmount        Decimal            @db.Decimal(10, 2)
+  priceUnit          PriceUnit
+  operatorIncluded   Boolean            @default(false)
+  fuelIncluded       Boolean            @default(false)
+  serviceRadiusKm    Int
+  availabilityStatus AvailabilityStatus @default(AVAILABLE)
+  availableFrom      DateTime?
+  availableUntil     DateTime?
+  description        String?
+  conditions         String?
+  status             ListingStatus      @default(PENDING_REVIEW)
+  createdAt          DateTime           @default(now())
+  updatedAt          DateTime           @updatedAt
+
+  owner        User             @relation("OwnerMachines", fields: [ownerId], references: [id], onDelete: Cascade)
+  category     MachineCategory  @relation(fields: [categoryId], references: [id])
+  photos       MachinePhoto[]
+  proposals    Proposal[]
+  reservations Reservation[]
+
+  @@index([categoryId, locationCity, locationState])
+  @@index([ownerId, status])
+  @@index([availabilityStatus, status])
+}
+
+model MachinePhoto {
+  id        String   @id @default(cuid())
+  machineId String
+  url       String
+  alt       String?
+  position  Int      @default(0)
+  createdAt DateTime @default(now())
+
+  machine Machine @relation(fields: [machineId], references: [id], onDelete: Cascade)
+
+  @@index([machineId, position])
+}
+
+model Demand {
+  id               String       @id @default(cuid())
+  contractorId     String
+  categoryId       String
+  title            String
+  operationType    String
+  estimatedAreaHa  Decimal?     @db.Decimal(10, 2)
+  minPowerHp       Int?
+  startDate        DateTime
+  durationDays     Int?
+  locationCity     String
+  locationState    String
+  latitude         Decimal?     @db.Decimal(9, 6)
+  longitude        Decimal?     @db.Decimal(9, 6)
+  operatorRequired Boolean      @default(false)
+  budgetAmount     Decimal?     @db.Decimal(10, 2)
+  notes            String?
+  status           DemandStatus @default(OPEN)
+  createdAt        DateTime     @default(now())
+  updatedAt        DateTime     @updatedAt
+
+  contractor    User             @relation("ContractorDemands", fields: [contractorId], references: [id], onDelete: Cascade)
+  category      MachineCategory  @relation(fields: [categoryId], references: [id])
+  photos        DemandPhoto[]
+  proposals     Proposal[]
+  conversations Conversation[]
+  reservations  Reservation[]
+
+  @@index([categoryId, locationCity, locationState, startDate])
+  @@index([contractorId, status])
+  @@index([status, createdAt])
+}
+
+model DemandPhoto {
+  id        String   @id @default(cuid())
+  demandId  String
+  url       String
+  alt       String?
+  position  Int      @default(0)
+  createdAt DateTime @default(now())
+
+  demand Demand @relation(fields: [demandId], references: [id], onDelete: Cascade)
+
+  @@index([demandId, position])
+}
+
+model Proposal {
+  id                    String         @id @default(cuid())
+  demandId              String
+  ownerId               String
+  machineId             String?
+  amount                Decimal        @db.Decimal(10, 2)
+  priceUnit             PriceUnit
+  operatorIncluded      Boolean        @default(false)
+  fuelIncluded          Boolean        @default(false)
+  displacementFeeAmount Decimal?       @db.Decimal(10, 2)
+  availableDate         DateTime
+  notes                 String?
+  validUntil            DateTime?
+  status                ProposalStatus @default(SENT)
+  createdAt             DateTime       @default(now())
+  updatedAt             DateTime       @updatedAt
+
+  demand       Demand        @relation(fields: [demandId], references: [id], onDelete: Cascade)
+  owner        User          @relation("OwnerProposals", fields: [ownerId], references: [id], onDelete: Cascade)
+  machine      Machine?      @relation(fields: [machineId], references: [id], onDelete: SetNull)
+  conversation Conversation?
+  reservation  Reservation?
+
+  @@index([demandId, status])
+  @@index([ownerId, status])
+  @@index([machineId])
+}
+
+model Conversation {
+  id           String         @id @default(cuid())
+  demandId     String
+  proposalId   String?        @unique
+  contractorId String
+  ownerId      String
+  status       DemandStatus   @default(NEGOTIATING)
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+
+  demand     Demand    @relation(fields: [demandId], references: [id], onDelete: Cascade)
+  proposal   Proposal? @relation(fields: [proposalId], references: [id], onDelete: SetNull)
+  contractor User      @relation("ContractorConversations", fields: [contractorId], references: [id], onDelete: Cascade)
+  owner      User      @relation("OwnerConversations", fields: [ownerId], references: [id], onDelete: Cascade)
+  messages   Message[]
+
+  @@index([contractorId, updatedAt])
+  @@index([ownerId, updatedAt])
+}
+
+model Message {
+  id             String         @id @default(cuid())
+  conversationId String
+  senderId       String
+  channel        MessageChannel @default(PLATFORM)
+  body           String
+  createdAt      DateTime       @default(now())
+  readAt         DateTime?
+
+  conversation Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  sender       User         @relation("SentMessages", fields: [senderId], references: [id], onDelete: Cascade)
+
+  @@index([conversationId, createdAt])
+}
+
+model Reservation {
+  id            String            @id @default(cuid())
+  contractorId  String
+  ownerId       String
+  demandId      String
+  proposalId    String            @unique
+  machineId     String?
+  startDate     DateTime
+  endDate       DateTime?
+  locationCity  String
+  locationState String
+  agreedAmount  Decimal           @db.Decimal(10, 2)
+  priceUnit     PriceUnit
+  conditions    String?
+  status        ReservationStatus @default(RESERVED)
+  createdAt     DateTime          @default(now())
+  updatedAt     DateTime          @updatedAt
+
+  contractor User      @relation("ContractorReservations", fields: [contractorId], references: [id], onDelete: Cascade)
+  owner      User      @relation("OwnerReservations", fields: [ownerId], references: [id], onDelete: Cascade)
+  demand     Demand    @relation(fields: [demandId], references: [id], onDelete: Cascade)
+  proposal   Proposal  @relation(fields: [proposalId], references: [id], onDelete: Cascade)
+  machine    Machine?  @relation(fields: [machineId], references: [id], onDelete: SetNull)
+  reviews    Review[]
+
+  @@index([contractorId, status])
+  @@index([ownerId, status])
+  @@index([startDate, status])
+}
+
+model Review {
+  id                String   @id @default(cuid())
+  reservationId     String
+  reviewerId        String
+  revieweeId        String
+  machineCondition  Int?
+  punctuality       Int?
+  serviceQuality    Int?
+  demandClarity     Int?
+  agreementAccuracy Int?
+  siteConditions    Int?
+  communication     Int
+  comment           String?
+  createdAt         DateTime @default(now())
+
+  reservation Reservation @relation(fields: [reservationId], references: [id], onDelete: Cascade)
+  reviewer    User        @relation("ReviewsWritten", fields: [reviewerId], references: [id], onDelete: Cascade)
+  reviewee    User        @relation("ReviewsReceived", fields: [revieweeId], references: [id], onDelete: Cascade)
+
+  @@unique([reservationId, reviewerId])
+  @@index([revieweeId, createdAt])
+}

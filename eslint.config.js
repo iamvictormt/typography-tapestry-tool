@@ -6,7 +6,16 @@ const compat = new FlatCompat({
 
 export default [
   {
-    ignores: [".next", "node_modules", "build"],
+    ignores: [
+      ".next",
+      ".screenshots",
+      ".agents",
+      ".claude",
+      ".windsurf",
+      "node_modules",
+      "build",
+      "src/generated/prisma",
+    ],
   },
   ...compat.config({
     extends: ["next/core-web-vitals"],

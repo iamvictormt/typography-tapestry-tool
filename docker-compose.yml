@@ -1,0 +1,21 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: terrano-postgres
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: terrano
+      POSTGRES_USER: terrano
+      POSTGRES_PASSWORD: terrano_dev_password
+    volumes:
+      - terrano_postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U terrano -d terrano"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  terrano_postgres_data:

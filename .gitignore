@@ -5,6 +5,7 @@ node_modules/
 .next/
 out/
 vercel/
+*.tsbuildinfo
 
 # production
 build/
@@ -20,6 +21,16 @@ pnpm-debug.log*
 # local env files
 .env*
 *.local
+!.env.example
+
+# generated local assistant/tooling artifacts
+.agents/
+.claude/
+.windsurf/
+skills-lock.json
+
+# generated prisma client
+src/generated/prisma/
 
 # editor files
 .vscode/
@@ -37,3 +48,5 @@ coverage/
 .cache/
 
 .env
+
+/src/generated/prisma

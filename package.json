@@ -8,10 +8,18 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint . --ext .ts,.tsx",
+    "db:up": "docker compose up -d postgres",
+    "db:down": "docker compose down",
+    "db:generate": "prisma generate --config prisma7.config.ts",
+    "db:migrate": "prisma migrate dev --config prisma7.config.ts",
+    "db:deploy": "prisma migrate deploy --config prisma7.config.ts",
+    "db:studio": "prisma studio --config prisma7.config.ts",
     "format": "prettier --write ."
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
+    "@prisma/adapter-pg": "^7.10.0",
+    "@prisma/client": "^7.10.0",
     "@radix-ui/react-accordion": "^1.2.12",
     "@radix-ui/react-alert-dialog": "^1.1.15",
     "@radix-ui/react-aspect-ratio": "^1.1.8",
@@ -46,6 +54,7 @@
     "input-otp": "^1.4.2",
     "lucide-react": "^0.575.0",
     "next": "^15.1.0",
+    "pg": "^8.23.0",
     "react": "^19.2.0",
     "react-day-picker": "^9.14.0",
     "react-dom": "^19.2.0",
@@ -63,6 +72,7 @@
     "@eslint/js": "^9.32.0",
     "@tailwindcss/postcss": "^4.0.0",
     "@types/node": "^22.16.5",
+    "@types/pg": "^8.23.1",
     "@types/react": "^19.2.0",
     "@types/react-dom": "^19.2.0",
     "autoprefixer": "^10.4.20",
@@ -74,6 +84,7 @@
     "globals": "^15.15.0",
     "postcss": "^8.4.38",
     "prettier": "^3.7.3",
+    "prisma": "^7.10.0",
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.56.1"
   }
