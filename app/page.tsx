@@ -1,4 +1,6 @@
-import { createFileRoute } from "@tanstack/react-router";
+"use client";
+
+import Image from "next/image";
 import {
   ArrowLeft,
   ArrowRight,
@@ -26,28 +28,6 @@ import product4 from "@/assets/product-4.jpg";
 import fpv from "@/assets/fpv.jpg";
 import pilot1 from "@/assets/pilot-1.jpg";
 import pilot2 from "@/assets/pilot-2.jpg";
-
-export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      { title: "Eleviq — Professional Drones for Every Flight Mission" },
-      {
-        name: "description",
-        content:
-          "Find your perfect drone. Professional aerial drones for creators, businesses and professionals — with expert guidance before you buy.",
-      },
-      { property: "og:title", content: "Eleviq — Professional Drones for Every Flight Mission" },
-      {
-        property: "og:description",
-        content:
-          "Professional aerial drones for creators, businesses and professionals — with expert guidance before you buy.",
-      },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-  }),
-  component: Index,
-});
 
 /* ---------------------------------- UI ---------------------------------- */
 
@@ -160,11 +140,10 @@ function Hero() {
           </PillButton>
         </div>
         <div className="relative">
-          <img
+          <Image
             src={droneHero}
             alt="Eleviq professional drone with lime accents"
-            width={1200}
-            height={900}
+            priority
             className="w-full rounded-3xl object-cover"
           />
         </div>
@@ -174,11 +153,10 @@ function Hero() {
         <div className="flex items-center gap-3 rounded-2xl border border-border bg-card p-4 pr-8">
           <div className="flex -space-x-3">
             {[pilot1, pilot2, expert].map((src, i) => (
-              <img
+              <Image
                 key={i}
                 src={src}
                 alt="Pilot"
-                loading="lazy"
                 width={600}
                 height={700}
                 className="size-10 rounded-full border-2 border-card object-cover"
@@ -260,12 +238,9 @@ function UseCases() {
           {useCases.map((c) => (
             <article key={c.title} className="group flex flex-col">
               <div className="relative overflow-hidden rounded-3xl">
-                <img
+                <Image
                   src={c.img}
                   alt={c.title}
-                  loading="lazy"
-                  width={800}
-                  height={1000}
                   className="aspect-[4/5] w-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
                 <div className="absolute inset-x-3 bottom-3 flex flex-wrap gap-1.5">
@@ -326,12 +301,9 @@ function Guidance() {
           ))}
         </div>
         <div className="relative overflow-hidden rounded-3xl">
-          <img
+          <Image
             src={expert}
             alt="Eleviq drone expert smiling in a park"
-            loading="lazy"
-            width={900}
-            height={700}
             className="h-full min-h-[420px] w-full object-cover"
           />
           <div className="absolute inset-x-4 bottom-4 rounded-2xl bg-card/95 p-5 backdrop-blur">
@@ -363,12 +335,9 @@ function Guidance() {
 function Moment() {
   return (
     <section className="relative overflow-hidden">
-      <img
+      <Image
         src={moment}
         alt="Pilot looking up at a drone hovering in a dark forest"
-        loading="lazy"
-        width={1600}
-        height={900}
         className="h-[70vh] w-full object-cover"
       />
       <div className="absolute inset-0 bg-gradient-to-t from-ink/80 via-transparent to-transparent" />
@@ -389,7 +358,13 @@ function Moment() {
 
 const products = [
   { img: product1, name: "ELEVIQ VISION X", price: "$799", old: "$899", tags: [] },
-  { img: product2, name: "ELEVIQ PULSE X", price: "$899", old: "$999", tags: ["Freestyle", "FPV Racing", "Action Sports"] },
+  {
+    img: product2,
+    name: "ELEVIQ PULSE X",
+    price: "$899",
+    old: "$999",
+    tags: ["Freestyle", "FPV Racing", "Action Sports"],
+  },
   { img: product3, name: "ELEVIQ NOVA PRO", price: "$1,099", old: "$1,299", tags: [] },
   { img: product4, name: "ELEVIQ ATLAS", price: "$1,299", old: "$1,499", tags: [] },
 ];
@@ -424,19 +399,19 @@ function Products() {
         {products.map((p, i) => (
           <article key={p.name} className="rounded-3xl border border-border bg-card p-4 text-left">
             <div className="overflow-hidden rounded-2xl bg-surface">
-              <img
+              <Image
                 src={p.img}
                 alt={p.name}
-                loading="lazy"
-                width={800}
-                height={600}
                 className="aspect-[4/3] w-full object-cover transition-transform duration-500 hover:scale-105"
               />
             </div>
             {p.tags.length > 0 && (
               <div className="mt-3 flex flex-wrap gap-1.5">
                 {p.tags.map((t) => (
-                  <span key={t} className="rounded-full bg-surface px-3 py-1 text-[11px] font-medium text-muted-foreground">
+                  <span
+                    key={t}
+                    className="rounded-full bg-surface px-3 py-1 text-[11px] font-medium text-muted-foreground"
+                  >
                     {t}
                   </span>
                 ))}
@@ -492,12 +467,9 @@ function Learn() {
       </div>
       <div className="mt-10 grid gap-4 lg:grid-cols-5">
         <article className="relative overflow-hidden rounded-3xl lg:col-span-2">
-          <img
+          <Image
             src={useCreator}
             alt="How to choose your first drone"
-            loading="lazy"
-            width={800}
-            height={1000}
             className="h-full min-h-[320px] w-full object-cover"
           />
           <div className="absolute inset-x-4 bottom-4 rounded-2xl bg-ink/60 p-5 text-primary-foreground backdrop-blur">
@@ -556,12 +528,9 @@ function MoreThanStore() {
           </PillButton>
         </div>
         <div className="overflow-hidden rounded-3xl">
-          <img
+          <Image
             src={expert}
             alt="Eleviq specialist"
-            loading="lazy"
-            width={900}
-            height={700}
             className="h-full min-h-[220px] w-full object-cover"
           />
         </div>
@@ -580,12 +549,9 @@ function MoreThanStore() {
           <p className="mt-1 text-sm font-semibold">Pilots Trust Eleviq</p>
         </div>
         <div className="overflow-hidden rounded-3xl">
-          <img
+          <Image
             src={usePro}
             alt="Professional drone pilot on site"
-            loading="lazy"
-            width={800}
-            height={1000}
             className="h-full min-h-[220px] w-full object-cover"
           />
         </div>
@@ -609,12 +575,9 @@ function Videos() {
       </div>
       <div className="mt-10 grid gap-4 lg:grid-cols-5">
         <div className="relative overflow-hidden rounded-3xl lg:col-span-3">
-          <img
+          <Image
             src={videoMain}
             alt="Eleviq Vision X cinematic performance test"
-            loading="lazy"
-            width={1200}
-            height={700}
             className="h-full min-h-[360px] w-full object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-ink/70 to-transparent" />
@@ -637,10 +600,9 @@ function Videos() {
               key={v.title}
               className="flex items-center gap-4 rounded-3xl border border-border bg-card p-3 transition-colors hover:bg-surface"
             >
-              <img
+              <Image
                 src={v.img}
                 alt={v.title}
-                loading="lazy"
                 width={800}
                 height={600}
                 className="h-16 w-24 shrink-0 rounded-2xl object-cover"
@@ -679,12 +641,9 @@ function Testimonials() {
           <div className="grid grid-cols-3 gap-3">
             {[pilot1, pilot2, expert].map((src, i) => (
               <div key={i} className="relative overflow-hidden rounded-3xl">
-                <img
+                <Image
                   src={src}
                   alt="Eleviq pilot"
-                  loading="lazy"
-                  width={600}
-                  height={700}
                   className="aspect-[5/6] w-full object-cover"
                 />
                 <span className="absolute right-2 bottom-2 flex items-center gap-0.5 rounded-full bg-card px-2 py-0.5 text-[10px] font-semibold">
@@ -699,12 +658,9 @@ function Testimonials() {
           </div>
         </div>
         <div className="relative overflow-hidden rounded-3xl">
-          <img
+          <Image
             src={moment}
             alt="Pilot with drone"
-            loading="lazy"
-            width={1600}
-            height={900}
             className="h-full min-h-[300px] w-full object-cover"
           />
           <div className="absolute inset-x-4 bottom-4 flex gap-2">
@@ -750,12 +706,9 @@ function FpvCta() {
   ];
   return (
     <section className="relative overflow-hidden">
-      <img
+      <Image
         src={fpv}
         alt="Pilot wearing FPV goggles under a drone at dusk"
-        loading="lazy"
-        width={1600}
-        height={900}
         className="h-[75vh] w-full object-cover"
       />
       <div className="absolute inset-0 bg-ink/40" />
@@ -835,7 +788,10 @@ function Footer() {
             <h3 className="text-sm font-semibold">Follow Us</h3>
             <div className="mt-4 flex gap-2">
               {Array.from({ length: 4 }).map((_, i) => (
-                <span key={i} className="grid size-9 place-items-center rounded-full bg-primary text-primary-foreground">
+                <span
+                  key={i}
+                  className="grid size-9 place-items-center rounded-full bg-primary text-primary-foreground"
+                >
                   <ArrowUpRight className="size-3.5" />
                 </span>
               ))}
@@ -855,7 +811,7 @@ function Footer() {
   );
 }
 
-function Index() {
+export default function Home() {
   return (
     <main className="min-h-screen">
       <Nav />
