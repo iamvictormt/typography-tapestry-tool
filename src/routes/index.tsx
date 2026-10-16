@@ -258,7 +258,7 @@ function HowItWorks() {
             <div className="rounded-2xl bg-card p-6 text-card-foreground shadow-xl">
               <div className="flex items-center gap-3">
                 <span className="grid size-9 place-items-center rounded-full bg-lime text-lime-foreground"><Check className="size-4" /></span>
-                <p className="font-display text-xl font-semibold">{f.steps[step][0]}</p>
+                <p className="font-display text-xl font-semibold">{f.steps[step]?.[0]}</p>
               </div>
               <div className="mt-5 flex gap-1.5">
                 {f.steps.map((_, i) => (
