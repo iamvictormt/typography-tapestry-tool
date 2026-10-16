@@ -21,7 +21,7 @@ export const Route = createFileRoute("/vagas/$id")({
     };
   },
   component: Detalhe,
-  errorComponent: ({ error }) => <div className="p-10">{error.message}</div>,
+  errorComponent: ({ error }) => <div className="p-10">{String(error)}</div>,
   notFoundComponent: () => (
     <div className="min-h-screen"><Nav /><div className="mx-auto max-w-7xl px-6 py-20 text-center">
       <h1 className="font-display text-3xl font-bold">Vaga não encontrada</h1>

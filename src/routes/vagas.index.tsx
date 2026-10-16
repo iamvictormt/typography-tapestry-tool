@@ -3,14 +3,14 @@ import { Search } from "lucide-react";
 import { Footer, JobCard, Nav } from "@/components/site";
 import { categories, jobs } from "@/lib/jobs";
 
-type S = { q?: string; categoria?: string; cidade?: string; min?: number };
+type S = { q?: string | undefined; categoria?: string | undefined; cidade?: string | undefined; min?: number | undefined };
 
 export const Route = createFileRoute("/vagas/")({
   validateSearch: (s: Record<string, unknown>): S => ({
-    q: typeof s.q === "string" ? s.q : undefined,
-    categoria: typeof s.categoria === "string" ? s.categoria : undefined,
-    cidade: typeof s.cidade === "string" ? s.cidade : undefined,
-    min: s.min ? Number(s.min) || undefined : undefined,
+    q: typeof s["q"] === "string" ? s.q : undefined,
+    categoria: typeof s["categoria"] === "string" ? s["categoria"] : undefined,
+    cidade: typeof s["cidade"] === "string" ? s["cidade"] : undefined,
+    min: s["min"] ? Number(s["min"]) || undefined : undefined,
   }),
   head: () => ({
     meta: [
