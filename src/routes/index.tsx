@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { ArrowRight, ArrowUpRight, Clock, MapPin, Plus, Star, Check, MessageCircle } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Plus, Star, Check, MessageCircle } from "lucide-react";
 import hero from "@/assets/zup-hero.jpg";
 import market from "@/assets/zup-market.jpg";
 import pharmacy from "@/assets/zup-pharmacy.jpg";
