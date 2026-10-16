@@ -10,33 +10,53 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as VagasIndexRouteImport } from './routes/vagas.index'
+import { Route as VagasIdRouteImport } from './routes/vagas.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const VagasIndexRoute = VagasIndexRouteImport.update({
+  id: '/vagas/',
+  path: '/vagas/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const VagasIdRoute = VagasIdRouteImport.update({
+  id: '/vagas/$id',
+  path: '/vagas/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/vagas/$id': typeof VagasIdRoute
+  '/vagas/': typeof VagasIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/vagas/$id': typeof VagasIdRoute
+  '/vagas': typeof VagasIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/vagas/$id': typeof VagasIdRoute
+  '/vagas/': typeof VagasIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/vagas/$id' | '/vagas/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/vagas/$id' | '/vagas'
+  id: '__root__' | '/' | '/vagas/$id' | '/vagas/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  VagasIdRoute: typeof VagasIdRoute
+  VagasIndexRoute: typeof VagasIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +68,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/vagas/': {
+      id: '/vagas/'
+      path: '/vagas'
+      fullPath: '/vagas/'
+      preLoaderRoute: typeof VagasIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/vagas/$id': {
+      id: '/vagas/$id'
+      path: '/vagas/$id'
+      fullPath: '/vagas/$id'
+      preLoaderRoute: typeof VagasIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  VagasIdRoute: VagasIdRoute,
+  VagasIndexRoute: VagasIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
