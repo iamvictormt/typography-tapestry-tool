@@ -371,40 +371,87 @@ function MoreThanStore() {
   );
 }
 
-function Videos() {
-  const items = [
-    { img: market, tag: "Profissional", title: "Como se candidatar a uma diária" },
-    { img: p1, tag: "Empresa", title: "Publicando sua primeira vaga" },
-    { img: pharmacy, tag: "Seleção", title: "Analisando candidatos com agilidade" },
-    { img: restaurant, tag: "História", title: "Do bico à equipe fixa do restaurante" },
-  ];
+const howPaths = [
+  {
+    label: "Para estabelecimentos",
+    title: "Precisa de Reforço?",
+    cta: { text: "Publicar uma vaga", to: "/empresas" as const, dark: true },
+    steps: [
+      {
+        t: "Publique a oportunidade",
+        d: "Informe função, data, horário, localização, remuneração e requisitos. Leva poucos minutos.",
+      },
+      {
+        t: "Veja os interessados",
+        d: "Profissionais próximos se candidatam e você visualiza o perfil de cada um.",
+      },
+      {
+        t: "Converse e escolha",
+        d: "Entre em contato direto com quem combina com a vaga e feche o turno.",
+      },
+    ],
+  },
+  {
+    label: "Para profissionais",
+    title: "Procura Renda Extra?",
+    cta: { text: "Ver diárias abertas", to: "/vagas" as const, dark: false },
+    steps: [
+      {
+        t: "Crie seu perfil",
+        d: "Cadastre-se gratuitamente e conte sua experiência e funções que você domina.",
+      },
+      {
+        t: "Encontre vagas perto de você",
+        d: "Descubra diárias e turnos abertos na sua região, para os próximos dias.",
+      },
+      {
+        t: "Candidate-se",
+        d: "Filtre por categoria e remuneração e se candidate em poucos toques.",
+      },
+    ],
+  },
+];
+
+function HowItWorks() {
   return (
     <section id="como-funciona" className="mx-auto max-w-[1400px] px-6 py-20">
       <div className="text-center">
         <Tag>Como funciona</Tag>
-        <h2 className="mt-6 text-4xl font-bold sm:text-5xl">Veja o Zup em Ação</h2>
+        <h2 className="mx-auto mt-6 max-w-xl text-4xl font-bold sm:text-5xl">
+          Simples Para os Dois Lados
+        </h2>
+        <p className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-muted-foreground">
+          Do anúncio ao primeiro contato, o caminho é curto: publicar, encontrar e conversar.
+        </p>
       </div>
-      <div className="mt-10 grid gap-4 lg:grid-cols-5">
-        <div className="relative overflow-hidden rounded-3xl lg:col-span-3">
-          <img src={hero} alt="Atendente de padaria" loading="lazy" width={1024} height={1280} className="h-full min-h-[360px] w-full object-cover object-top" />
-          <div className="absolute inset-0 bg-gradient-to-t from-ink/70 to-transparent" />
-          <div className="absolute bottom-5 left-5 text-primary-foreground">
-            <h3 className="font-display text-2xl font-bold">Da Vaga ao Contato<br />em Seis Passos</h3>
-            <p className="mt-1 text-xs text-primary-foreground/70">Publicação, candidatura, seleção e conversa direta.</p>
-          </div>
-          <span className="absolute right-5 bottom-5 grid size-12 place-items-center rounded-full bg-lime text-lime-foreground"><Play className="size-5 fill-current" /></span>
-        </div>
-        <div className="flex flex-col gap-3 lg:col-span-2">
-          {items.map((v) => (
-            <article key={v.title} className="flex items-center gap-4 rounded-3xl border border-border bg-card p-3 transition-colors hover:bg-surface">
-              <img src={v.img} alt={v.title} loading="lazy" width={800} height={600} className="h-16 w-24 shrink-0 rounded-2xl object-cover object-top" />
-              <div className="min-w-0">
-                <span className="rounded-full bg-surface px-2.5 py-0.5 text-[10px] font-medium text-muted-foreground">{v.tag}</span>
-                <h3 className="mt-1 truncate font-display text-sm font-semibold">{v.title}</h3>
-              </div>
-            </article>
-          ))}
-        </div>
+      <div className="mt-10 grid gap-4 lg:grid-cols-2">
+        {howPaths.map((path, pi) => (
+          <article key={path.label} className="flex flex-col rounded-3xl border border-border bg-card p-8">
+            <div className="flex items-center justify-between gap-4">
+              <span className={`rounded-full px-3 py-1 text-[11px] font-semibold ${pi === 1 ? "bg-lime text-lime-foreground" : "bg-surface text-muted-foreground"}`}>
+                {path.label}
+              </span>
+              <h3 className="font-display text-xl font-bold">{path.title}</h3>
+            </div>
+            <ol className="mt-8 flex flex-1 flex-col gap-6">
+              {path.steps.map((s, i) => (
+                <li key={s.t} className="flex items-start gap-4">
+                  <span className={`grid size-9 shrink-0 place-items-center rounded-full font-display text-sm font-bold ${i === path.steps.length - 1 ? "bg-lime text-lime-foreground" : "bg-surface text-foreground"}`}>
+                    {i + 1}
+                  </span>
+                  <div>
+                    <p className="font-display font-bold">{s.t}</p>
+                    <p className="mt-1 text-sm leading-relaxed text-muted-foreground">{s.d}</p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+            <Link to={path.cta.to} className={`${pillBase} mt-8 w-fit ${path.cta.dark ? pill.dark : pill.lime}`}>
+              {path.cta.text}
+              <ArrowRight className="size-4" />
+            </Link>
+          </article>
+        ))}
       </div>
     </section>
   );
