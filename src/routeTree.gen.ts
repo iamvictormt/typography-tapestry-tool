@@ -10,12 +10,36 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ComoFuncionaRouteImport } from './routes/como-funciona'
+import { Route as DepoimentosRouteImport } from './routes/depoimentos'
+import { Route as DicasRouteImport } from './routes/dicas'
+import { Route as EmpresasRouteImport } from './routes/empresas'
 import { Route as VagasIndexRouteImport } from './routes/vagas.index'
 import { Route as VagasIdRouteImport } from './routes/vagas.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ComoFuncionaRoute = ComoFuncionaRouteImport.update({
+  id: '/como-funciona',
+  path: '/como-funciona',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DepoimentosRoute = DepoimentosRouteImport.update({
+  id: '/depoimentos',
+  path: '/depoimentos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DicasRoute = DicasRouteImport.update({
+  id: '/dicas',
+  path: '/dicas',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EmpresasRoute = EmpresasRouteImport.update({
+  id: '/empresas',
+  path: '/empresas',
   getParentRoute: () => rootRouteImport,
 } as any)
 const VagasIndexRoute = VagasIndexRouteImport.update({
@@ -31,30 +55,68 @@ const VagasIdRoute = VagasIdRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/como-funciona': typeof ComoFuncionaRoute
+  '/depoimentos': typeof DepoimentosRoute
+  '/dicas': typeof DicasRoute
+  '/empresas': typeof EmpresasRoute
   '/vagas/$id': typeof VagasIdRoute
   '/vagas/': typeof VagasIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/como-funciona': typeof ComoFuncionaRoute
+  '/depoimentos': typeof DepoimentosRoute
+  '/dicas': typeof DicasRoute
+  '/empresas': typeof EmpresasRoute
   '/vagas/$id': typeof VagasIdRoute
   '/vagas': typeof VagasIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/como-funciona': typeof ComoFuncionaRoute
+  '/depoimentos': typeof DepoimentosRoute
+  '/dicas': typeof DicasRoute
+  '/empresas': typeof EmpresasRoute
   '/vagas/$id': typeof VagasIdRoute
   '/vagas/': typeof VagasIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/vagas/$id' | '/vagas/'
+  fullPaths:
+    | '/'
+    | '/como-funciona'
+    | '/depoimentos'
+    | '/dicas'
+    | '/empresas'
+    | '/vagas/$id'
+    | '/vagas/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/vagas/$id' | '/vagas'
-  id: '__root__' | '/' | '/vagas/$id' | '/vagas/'
+  to:
+    | '/'
+    | '/como-funciona'
+    | '/depoimentos'
+    | '/dicas'
+    | '/empresas'
+    | '/vagas/$id'
+    | '/vagas'
+  id:
+    | '__root__'
+    | '/'
+    | '/como-funciona'
+    | '/depoimentos'
+    | '/dicas'
+    | '/empresas'
+    | '/vagas/$id'
+    | '/vagas/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ComoFuncionaRoute: typeof ComoFuncionaRoute
+  DepoimentosRoute: typeof DepoimentosRoute
+  DicasRoute: typeof DicasRoute
+  EmpresasRoute: typeof EmpresasRoute
   VagasIdRoute: typeof VagasIdRoute
   VagasIndexRoute: typeof VagasIndexRoute
 }
@@ -66,6 +128,34 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/como-funciona': {
+      id: '/como-funciona'
+      path: '/como-funciona'
+      fullPath: '/como-funciona'
+      preLoaderRoute: typeof ComoFuncionaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/depoimentos': {
+      id: '/depoimentos'
+      path: '/depoimentos'
+      fullPath: '/depoimentos'
+      preLoaderRoute: typeof DepoimentosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dicas': {
+      id: '/dicas'
+      path: '/dicas'
+      fullPath: '/dicas'
+      preLoaderRoute: typeof DicasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/empresas': {
+      id: '/empresas'
+      path: '/empresas'
+      fullPath: '/empresas'
+      preLoaderRoute: typeof EmpresasRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/vagas/': {
@@ -87,6 +177,10 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ComoFuncionaRoute: ComoFuncionaRoute,
+  DepoimentosRoute: DepoimentosRoute,
+  DicasRoute: DicasRoute,
+  EmpresasRoute: EmpresasRoute,
   VagasIdRoute: VagasIdRoute,
   VagasIndexRoute: VagasIndexRoute,
 }
