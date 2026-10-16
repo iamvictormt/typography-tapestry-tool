@@ -6,7 +6,7 @@ import {
   BadgeCheck,
   Clock,
   MapPin,
-  MapPin,
+  Star,
   Zap,
   MessageCircle,
   ShieldCheck,
