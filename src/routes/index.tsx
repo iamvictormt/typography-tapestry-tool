@@ -558,7 +558,7 @@ function Index() {
       <Products />
       <Learn />
       <MoreThanStore />
-      <Videos />
+      <HowItWorks />
       <Testimonials />
       <FpvCta />
       <Footer />
