@@ -356,7 +356,7 @@ function Manifesto() {
   ];
   return (
     <section id="porque" className={`${wrap} scroll-mt-20 py-24 lg:py-32`}>
-      <p className="mb-4 text-sm font-medium text-muted-foreground">03 — Por que Zup</p>
+      <p className="mb-4 text-sm font-medium text-muted-foreground">02 — Por que Zup</p>
       <div className="grid gap-8 lg:grid-cols-2 lg:items-end">
         <h2 className="font-display text-5xl leading-[1] font-bold tracking-tight text-balance sm:text-6xl">
           Sem agência, sem taxa escondida, sem grupo de WhatsApp lotado.
@@ -416,7 +416,7 @@ const voices = [
 function Voices() {
   return (
     <section id="depoimentos" className={`${wrap} scroll-mt-20 pb-24 lg:pb-32`}>
-      <p className="mb-4 text-sm font-medium text-muted-foreground">04 — Quem usa</p>
+      <p className="mb-4 text-sm font-medium text-muted-foreground">03 — Quem usa</p>
       <div className="grid gap-8 lg:grid-cols-2 lg:items-end">
         <h2 className="font-display text-5xl leading-[1] font-bold tracking-tight text-balance sm:text-6xl">
           Quem já trocou um turno, <span className="text-lime">conta melhor.</span>
@@ -526,7 +526,7 @@ function FinalCta() {
     <section id="comecar" className={`${wrap} scroll-mt-20 py-24 lg:py-32`}>
       <div className="grid gap-8 lg:grid-cols-2 lg:items-end">
         <div>
-          <p className="mb-4 text-sm font-medium text-muted-foreground">06 — Começar</p>
+          <p className="mb-4 text-sm font-medium text-muted-foreground">05 — Começar</p>
           <h2 className="font-display text-5xl leading-[1] font-bold tracking-tight text-balance sm:text-6xl">
             Escolha o seu lado e <span className="text-lime">comece agora.</span>
           </h2>
