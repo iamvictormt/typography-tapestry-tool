@@ -32,10 +32,10 @@ export const Route = createFileRoute("/")({
 const wrap = "mx-auto max-w-[1320px] px-6";
 
 const shifts = [
-  { role: "Repositor", place: "Mercado Bom Preço", area: "Pinheiros", time: "07:00 – 15:00", day: "Sáb, 18", pay: 150, img: market },
-  { role: "Atendente de balcão", place: "Farmácia Vida", area: "Moema", time: "14:00 – 22:00", day: "Dom, 19", pay: 140, img: pharmacy },
-  { role: "Auxiliar de cozinha", place: "Cantina Nonna", area: "Bela Vista", time: "18:00 – 00:00", day: "Sex, 17", pay: 170, img: restaurant },
-  { role: "Padeiro", place: "Padaria Estrela", area: "Tatuapé", time: "04:00 – 10:00", day: "Seg, 20", pay: 180, img: market },
+  { role: "Repositor", place: "Mercado Bom Preço", category: "Supermercado", area: "Pinheiros", time: "07:00 – 15:00", day: "Sáb, 18", pay: 150, img: market },
+  { role: "Atendente de balcão", place: "Farmácia Vida", category: "Farmácia", area: "Moema", time: "14:00 – 22:00", day: "Dom, 19", pay: 140, img: pharmacy },
+  { role: "Auxiliar de cozinha", place: "Cantina Nonna", category: "Restaurante", area: "Bela Vista", time: "18:00 – 00:00", day: "Sex, 17", pay: 170, img: restaurant },
+  { role: "Padeiro", place: "Padaria Estrela", category: "Padaria", area: "Tatuapé", time: "04:00 – 10:00", day: "Seg, 20", pay: 180, img: market },
 ];
 
 const categories = ["Supermercados", "Padarias", "Farmácias", "Restaurantes", "Bares", "Hortifrútis", "Lanchonetes", "Açougues"];
@@ -266,23 +266,34 @@ function Board() {
           </div>
         </div>
 
-        <div className="mt-14 divide-y divide-primary-foreground/10 border-y border-primary-foreground/10">
-          {shifts.map((s) => (
-            <div key={s.role} className="group grid grid-cols-[64px_1fr_auto] items-center gap-5 py-6 md:grid-cols-[80px_2fr_1.2fr_1fr_auto]">
-              <img src={s.img} alt="" className="size-16 rounded-2xl object-cover md:size-20" />
-              <div className="min-w-0">
-                <p className="font-display text-xl font-semibold md:text-2xl">{s.role}</p>
-                <p className="text-sm text-primary-foreground/60">{s.place}</p>
+        <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {shifts
+            .filter((s) => active === "Todas" || s.category === active)
+            .map((s) => (
+            <article key={s.role} className="group flex flex-col overflow-hidden rounded-[1.75rem] bg-card text-card-foreground">
+              <div className="relative h-44 overflow-hidden">
+                <img src={s.img} alt={s.place} className="size-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                <span className="absolute top-3 left-3 rounded-full bg-card/90 px-3 py-1 text-xs font-medium backdrop-blur">{s.category}</span>
+                <span className="absolute top-3 right-3 rounded-full bg-lime px-3 py-1 text-xs font-semibold text-lime-foreground">{s.day}</span>
               </div>
-              <div className="hidden space-y-1 text-sm text-primary-foreground/70 md:block">
-                <p className="flex items-center gap-2"><Clock className="size-4" /> {s.day} · {s.time}</p>
-                <p className="flex items-center gap-2"><MapPin className="size-4" /> {s.area}</p>
+              <div className="flex flex-1 flex-col p-6">
+                <h3 className="font-display text-xl font-semibold">{s.role}</h3>
+                <p className="mt-1 text-sm text-muted-foreground">{s.place}</p>
+                <div className="mt-5 space-y-2 text-sm text-muted-foreground">
+                  <p className="flex items-center gap-2"><Clock className="size-4" /> {s.time}</p>
+                  <p className="flex items-center gap-2"><MapPin className="size-4" /> {s.area}</p>
+                </div>
+                <div className="mt-auto flex items-end justify-between border-t border-border pt-5 mt-6">
+                  <div>
+                    <p className="text-xs text-muted-foreground">Diária</p>
+                    <p className="font-display text-2xl font-bold">R$ {s.pay}</p>
+                  </div>
+                  <a href="#comecar" aria-label={`Candidatar-se: ${s.role}`} className="grid size-11 place-items-center rounded-full bg-ink text-primary-foreground transition-colors group-hover:bg-lime group-hover:text-lime-foreground">
+                    <ArrowUpRight className="size-5" />
+                  </a>
+                </div>
               </div>
-              <p className="hidden font-display text-2xl font-bold md:block">R$ {s.pay}</p>
-              <a href="#comecar" className="grid size-12 place-items-center rounded-full border border-primary-foreground/20 transition-colors group-hover:border-lime group-hover:bg-lime group-hover:text-lime-foreground">
-                <ArrowUpRight className="size-5" />
-              </a>
-            </div>
+            </article>
           ))}
         </div>
         <a href="#comecar" className="mt-10 inline-flex items-center gap-2 font-medium text-lime">
