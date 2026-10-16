@@ -495,7 +495,7 @@ const testimonials = [
 
 function Testimonials() {
   const [active, setActive] = useState(0);
-  const t = testimonials[active];
+  const t = testimonials[active]!;
   const prev = () => setActive((a) => (a - 1 + testimonials.length) % testimonials.length);
   const next = () => setActive((a) => (a + 1) % testimonials.length);
 
