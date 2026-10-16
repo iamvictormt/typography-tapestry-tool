@@ -71,7 +71,7 @@ function Page() {
           </div>
           <div className="flex flex-col gap-4">
             <Tag>Transparência</Tag>
-            <h2 className="text-4xl font-bold sm:text-5xl">Acompanhe Cada Etapa</h2>
+            <h2 className="font-display text-4xl leading-[1.05] font-bold tracking-tight text-balance sm:text-5xl">Acompanhe Cada Etapa</h2>
             <Flow title="Estados da vaga" items={jobStates} extra="Uma vaga também pode ser cancelada ou suspensa pela moderação." />
             <Flow title="Estados da candidatura" items={appStates} extra="Outros estados possíveis: não selecionada e cancelada." />
             <div className="flex items-start gap-3 rounded-3xl bg-surface p-6 text-sm text-muted-foreground">
