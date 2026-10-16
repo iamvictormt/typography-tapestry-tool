@@ -44,10 +44,10 @@ export const Route = createFileRoute("/")({
 
 function Hero() {
   return (
-    <section className="mx-auto max-w-[1400px] px-6 pt-10 pb-20">
-      <div className="grid items-center gap-10 lg:grid-cols-2">
+    <section className={`${container} pt-12 pb-16 lg:pt-16`}>
+      <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
         <div>
-          <h1 className="text-5xl leading-[1.02] font-extrabold tracking-tight uppercase sm:text-6xl lg:text-7xl">
+          <h1 className="font-display text-5xl leading-[1.02] font-extrabold tracking-tight uppercase sm:text-6xl lg:text-7xl">
             Diárias
             <br />
             e Turnos{" "}
@@ -57,7 +57,7 @@ function Hero() {
               de Você
             </span>
           </h1>
-          <p className="mt-6 max-w-md text-sm leading-relaxed text-muted-foreground">
+          <p className={`${leadClass} mt-6 max-w-md text-lg`}>
             O Zup conecta supermercados, padarias, farmácias e restaurantes a profissionais que buscam uma
             oportunidade de renda — de forma rápida, simples e direta.
           </p>
@@ -125,25 +125,20 @@ const useCases = [
 
 function UseCases() {
   return (
-    <section className="mx-auto max-w-[1400px] px-6 py-20">
+    <section className={`${container} ${sectionY}`}>
       <Tag>Para quem é</Tag>
-      <div className="mt-6 grid gap-6 lg:grid-cols-[1fr_3fr]">
-        <div>
-          <h2 className="text-4xl font-bold sm:text-5xl">
-            Feito para
-            <br />
-            Negócios que
-            <br />
-            Não Param
+      <div className="mt-6 grid gap-10 lg:grid-cols-[1fr_3fr]">
+        <div className="flex flex-col">
+          <h2 className={h2Class}>
+            Feito para Negócios que Não Param
           </h2>
-          <p className="mt-4 max-w-xs text-sm leading-relaxed text-muted-foreground">
+          <p className={`${leadClass} mt-5 max-w-xs`}>
             Padarias, mercados, farmácias, restaurantes e muito mais publicam diárias informando função,
             data, horário, local e remuneração.
           </p>
-          <div className="mt-8 flex gap-2">
-            <span className="grid size-10 place-items-center rounded-full border border-border bg-card"><ArrowLeft className="size-4" /></span>
-            <span className="grid size-10 place-items-center rounded-full border border-border bg-card"><ArrowRight className="size-4" /></span>
-          </div>
+          <Link to="/empresas" className={`${pillBase} ${pill.light} mt-8 w-fit`}>
+            Ver soluções para empresas <ArrowRight className="size-4" />
+          </Link>
         </div>
         <div className="grid gap-4 sm:grid-cols-3">
           {useCases.map((c) => (
@@ -177,14 +172,12 @@ const pains = [
 
 function Guidance() {
   return (
-    <section id="empresas" className="mx-auto max-w-[1400px] px-6 py-20">
-      <Tag>Problemas & Soluções</Tag>
-      <div className="mt-6 flex flex-wrap items-end justify-between gap-6">
-        <h2 className="max-w-xl text-4xl font-bold sm:text-5xl">Encontrar Reforço Não Deveria Ser Complicado</h2>
-        <p className="max-w-xs text-sm leading-relaxed text-muted-foreground">
-          Publique a oportunidade, veja quem tem interesse e converse direto com o profissional escolhido.
-        </p>
-      </div>
+    <section id="empresas" className={`${container} ${sectionY}`}>
+      <SectionHeader
+        tag="Problemas & Soluções"
+        title="Encontrar Reforço Não Deveria Ser Complicado"
+        text="Publique a oportunidade, veja quem tem interesse e converse direto com o profissional escolhido."
+      />
       <div className="mt-10 grid gap-4 lg:grid-cols-2">
         <div className="flex flex-col gap-3">
           {pains.map((p, i) => (
@@ -240,12 +233,13 @@ const catImg: Record<string, string> = { Estoque: market, Caixa: market, Farmác
 function Products() {
   const filters = ["Atendimento", "Cozinha", "Estoque", "Farmácia", "Todas"];
   return (
-    <section className="mx-auto max-w-[1400px] px-6 py-24 text-center">
-      <Tag>Oportunidades abertas</Tag>
-      <h2 className="mx-auto mt-6 max-w-lg text-4xl font-bold sm:text-5xl">Diárias Desta Semana</h2>
-      <p className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-muted-foreground">
-        Encontre oportunidades próximas, filtre por categoria e remuneração e candidate-se em poucos toques.
-      </p>
+    <section className={`${container} ${sectionY} text-center`}>
+      <SectionHeader
+        center
+        tag="Oportunidades abertas"
+        title="Diárias Desta Semana"
+        text="Encontre oportunidades próximas, filtre por categoria e remuneração e candidate-se em poucos toques."
+      />
       <div className="mt-8 flex flex-wrap justify-center gap-2">
         {filters.map((f) => (
           <Link key={f} to="/vagas" search={f === "Todas" ? {} : { categoria: f }} className={`rounded-full px-5 py-2 text-sm font-medium transition-colors ${f === "Todas" ? "bg-lime text-lime-foreground" : "border border-border bg-card text-muted-foreground hover:text-foreground"}`}>
@@ -291,14 +285,13 @@ function Learn() {
     { tag: "Dicas", title: "5 atitudes que fazem você ser chamado de novo", time: "4 min de leitura" },
   ];
   return (
-    <section id="dicas" className="mx-auto max-w-[1400px] px-6 py-20">
-      <div className="text-center">
-        <Tag>Central de dicas</Tag>
-        <h2 className="mt-6 text-4xl font-bold sm:text-5xl">Prepare-se Para o Próximo Turno</h2>
-        <p className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-muted-foreground">
-          Guias para profissionais e estabelecimentos aproveitarem o melhor do Zup.
-        </p>
-      </div>
+    <section id="dicas" className={`${container} ${sectionY}`}>
+      <SectionHeader
+        center
+        tag="Central de dicas"
+        title="Prepare-se Para o Próximo Turno"
+        text="Guias para profissionais e estabelecimentos aproveitarem o melhor do Zup."
+      />
       <div className="mt-10 grid gap-4 lg:grid-cols-5">
         <article className="relative overflow-hidden rounded-3xl lg:col-span-2">
           <img src={p2} alt="Profissional sorrindo" loading="lazy" width={768} height={896} className="h-full min-h-[320px] w-full object-cover object-top" />
@@ -337,18 +330,12 @@ function MoreThanStore() {
     ["8 mil+", "profissionais cadastrados"],
   ];
   return (
-    <section className="mx-auto max-w-[1400px] px-6 py-20">
-      <Tag>Por que o Zup</Tag>
-      <div className="mt-6 flex flex-wrap items-end justify-between gap-6">
-        <h2 className="text-4xl font-bold sm:text-5xl">
-          Mais que um
-          <br />
-          Mural de Vagas
-        </h2>
-        <p className="max-w-xs text-sm leading-relaxed text-muted-foreground">
-          Do anúncio ao primeiro contato, o Zup organiza cada etapa da conexão entre as partes.
-        </p>
-      </div>
+    <section className={`${container} ${sectionY}`}>
+      <SectionHeader
+        tag="Por que o Zup"
+        title={<>Mais que um<br />Mural de Vagas</>}
+        text="Do anúncio ao primeiro contato, o Zup organiza cada etapa da conexão entre as partes."
+      />
       <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {features.map((f) => (
           <div key={f.t} className="rounded-3xl border border-border bg-card p-6 transition-colors hover:bg-surface">
@@ -415,16 +402,13 @@ const howPaths = [
 
 function HowItWorks() {
   return (
-    <section id="como-funciona" className="mx-auto max-w-[1400px] px-6 py-20">
-      <div className="text-center">
-        <Tag>Como funciona</Tag>
-        <h2 className="mx-auto mt-6 max-w-xl text-4xl font-bold sm:text-5xl">
-          Simples Para os Dois Lados
-        </h2>
-        <p className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-muted-foreground">
-          Do anúncio ao primeiro contato, o caminho é curto: publicar, encontrar e conversar.
-        </p>
-      </div>
+    <section id="como-funciona" className={`${container} ${sectionY}`}>
+      <SectionHeader
+        center
+        tag="Como funciona"
+        title="Simples Para os Dois Lados"
+        text="Do anúncio ao primeiro contato, o caminho é curto: publicar, encontrar e conversar."
+      />
       <div className="mt-10 grid gap-4 lg:grid-cols-2">
         {howPaths.map((path, pi) => (
           <article key={path.label} className="flex flex-col rounded-3xl border border-border bg-card p-8">
@@ -500,18 +484,12 @@ function Testimonials() {
   const next = () => setActive((a) => (a + 1) % testimonials.length);
 
   return (
-    <section id="depoimentos" className="mx-auto max-w-[1400px] px-6 py-20">
-      <Tag>Depoimentos</Tag>
-      <div className="mt-6 flex flex-wrap items-end justify-between gap-6">
-        <h2 className="text-4xl font-bold sm:text-5xl">
-          Quem Precisa.
-          <br />
-          Quem Quer Trabalhar.
-        </h2>
-        <p className="max-w-xs text-sm leading-relaxed text-muted-foreground">
-          Estabelecimentos e profissionais usam o Zup para se encontrar com mais rapidez e confiança.
-        </p>
-      </div>
+    <section id="depoimentos" className={`${container} ${sectionY}`}>
+      <SectionHeader
+        tag="Depoimentos"
+        title={<>Quem Precisa.<br />Quem Quer Trabalhar.</>}
+        text="Estabelecimentos e profissionais usam o Zup para se encontrar com mais rapidez e confiança."
+      />
       <div className="mt-10 grid gap-4 lg:grid-cols-[1.2fr_1fr]">
         <figure className="flex flex-col justify-between rounded-3xl border border-border bg-card p-8 sm:p-10">
           <div>
