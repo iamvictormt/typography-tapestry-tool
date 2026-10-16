@@ -409,8 +409,8 @@ function Manifesto() {
 }
 
 const voices = [
-  { q: "Faltou um repositor no sábado às 6h. Às 6h20 eu já tinha três pessoas interessadas.", n: "Marcos Lima", r: "Gerente, Mercado Bom Preço", img: p1 },
-  { q: "Escolho os dias que trabalho e tiro uma renda extra perto de casa. Mudou meu mês.", n: "Juliana Reis", r: "Atendente, usa o Zup há 8 meses", img: p2 },
+  { q: "Faltou um repositor no sábado às 6h. Às 6h20 eu já tinha três pessoas interessadas.", n: "Marcos Lima", r: "Gerente, Mercado Bom Preço", img: p2 },
+  { q: "Escolho os dias que trabalho e tiro uma renda extra perto de casa. Mudou meu mês.", n: "Juliana Reis", r: "Atendente, usa o Zup há 8 meses", img: p1 },
 ];
 
 function Voices() {
