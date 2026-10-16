@@ -7,7 +7,7 @@ type S = { q?: string | undefined; categoria?: string | undefined; cidade?: stri
 
 export const Route = createFileRoute("/vagas/")({
   validateSearch: (s: Record<string, unknown>): S => ({
-    q: typeof s["q"] === "string" ? s.q : undefined,
+    q: typeof s["q"] === "string" ? s["q"] : undefined,
     categoria: typeof s["categoria"] === "string" ? s["categoria"] : undefined,
     cidade: typeof s["cidade"] === "string" ? s["cidade"] : undefined,
     min: s["min"] ? Number(s["min"]) || undefined : undefined,
