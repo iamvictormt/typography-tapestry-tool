@@ -10,6 +10,10 @@ import {
   Search,
   Star,
   Zap,
+  MessageCircle,
+  ShieldCheck,
+  SlidersHorizontal,
+  Heart,
 } from "lucide-react";
 
 import hero from "@/assets/zup-hero.jpg";
@@ -322,6 +326,17 @@ function Learn() {
 }
 
 function MoreThanStore() {
+  const features = [
+    { icon: MessageCircle, t: "Contato direto", d: "Após a seleção, empresa e profissional conversam pelo WhatsApp, sem intermediários." },
+    { icon: ShieldCheck, t: "Empresas verificadas", d: "Cadastros empresariais revisados e vagas moderadas pela equipe Zup." },
+    { icon: SlidersHorizontal, t: "Filtros inteligentes", d: "Busque por categoria, cidade, data e valor da diária." },
+    { icon: Heart, t: "Favoritos e histórico", d: "Salve vagas e acompanhe cada candidatura em um só lugar." },
+  ];
+  const stats = [
+    ["24h", "para preencher uma vaga"],
+    ["0%", "de taxa para profissionais"],
+    ["8 mil+", "profissionais cadastrados"],
+  ];
   return (
     <section className="mx-auto max-w-[1400px] px-6 py-20">
       <Tag>Por que o Zup</Tag>
@@ -335,32 +350,24 @@ function MoreThanStore() {
           Do anúncio ao primeiro contato, o Zup organiza cada etapa da conexão entre as partes.
         </p>
       </div>
-      <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        <div className="rounded-3xl border border-border bg-card p-8">
-          <h3 className="font-display text-lg font-bold">Contato Direto</h3>
-          <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-            Depois da seleção, empresa e profissional conversam direto pelo WhatsApp — sem intermediários.
-          </p>
-          <Link to="/vagas" className={`${pillBase} ${pill.dark} mt-6 px-5 py-2 text-xs`}>Ver vagas</Link>
-        </div>
-        <div className="overflow-hidden rounded-3xl">
-          <img src={restaurant} alt="Garçom em restaurante" loading="lazy" width={896} height={1152} className="h-full min-h-[220px] w-full object-cover" />
-        </div>
-        <div className="flex flex-col justify-between rounded-3xl border border-border bg-card p-8">
-          <p className="text-sm font-medium text-muted-foreground">Tempo médio para preencher</p>
-          <p className="font-display text-5xl font-extrabold">24h</p>
-        </div>
-        <div className="flex flex-col justify-between rounded-3xl border border-border bg-card p-8">
-          <p className="text-sm font-medium text-muted-foreground">Taxa para profissionais</p>
-          <p className="font-display text-5xl font-extrabold">0% <span className="text-2xl text-muted-foreground">sempre</span></p>
-        </div>
-        <div className="flex flex-col justify-center rounded-3xl bg-lime p-8 text-lime-foreground">
-          <p className="font-display text-4xl font-extrabold">8.000+</p>
-          <p className="mt-1 text-sm font-semibold">Profissionais no Zup</p>
-        </div>
-        <div className="overflow-hidden rounded-3xl">
-          <img src={pharmacy} alt="Balconista de farmácia" loading="lazy" width={896} height={1152} className="h-full min-h-[220px] w-full object-cover" />
-        </div>
+      <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {features.map((f) => (
+          <div key={f.t} className="rounded-3xl border border-border bg-card p-6 transition-colors hover:bg-surface">
+            <span className="grid size-11 place-items-center rounded-full bg-lime text-lime-foreground">
+              <f.icon className="size-5" />
+            </span>
+            <h3 className="mt-6 font-display text-lg font-bold">{f.t}</h3>
+            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{f.d}</p>
+          </div>
+        ))}
+      </div>
+      <div className="mt-4 grid divide-y divide-primary-foreground/10 rounded-3xl bg-primary text-primary-foreground sm:grid-cols-3 sm:divide-x sm:divide-y-0">
+        {stats.map(([k, v]) => (
+          <div key={v} className="flex items-baseline gap-3 px-8 py-6">
+            <span className="font-display text-4xl font-extrabold text-lime">{k}</span>
+            <span className="text-sm opacity-70">{v}</span>
+          </div>
+        ))}
       </div>
     </section>
   );
