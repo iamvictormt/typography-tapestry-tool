@@ -178,29 +178,28 @@ function Guidance() {
         title="Encontrar Reforço Não Deveria Ser Complicado"
         text="Publique a oportunidade, veja quem tem interesse e converse direto com o profissional escolhido."
       />
-      <div className="mt-10 grid gap-4 lg:grid-cols-2">
-        <div className="flex flex-col gap-3">
+      <div className="mt-10 grid items-stretch gap-4 lg:grid-cols-[1.06fr_0.94fr]">
+        <div className="flex flex-col gap-4">
           {pains.map((p, i) => (
-            <div key={p} className="flex items-center gap-6 rounded-3xl border border-border bg-card p-5 transition-colors hover:bg-surface">
+            <div key={p} className="flex flex-1 items-center gap-5 rounded-3xl border border-border bg-card p-6 transition-colors hover:bg-surface">
               <span className="font-display text-4xl font-extrabold text-muted-foreground/30">{String(i + 1).padStart(2, "0")}</span>
-              <p className="text-sm font-medium sm:text-base">{p}</p>
+              <p className="text-base font-medium sm:text-lg">{p}</p>
             </div>
           ))}
         </div>
-        <div className="relative overflow-hidden rounded-3xl">
-          <img src={p1} alt="Dona de restaurante sorrindo" loading="lazy" width={768} height={896} className="h-full min-h-[420px] w-full object-cover object-top" />
-          <div className="absolute inset-x-4 bottom-4 rounded-2xl bg-card/95 p-5 backdrop-blur">
-            <div className="flex items-start justify-between gap-4">
-              <div>
+        <div className="relative min-h-[420px] overflow-hidden rounded-3xl lg:min-h-0">
+          <img src={p1} alt="Dona de restaurante sorrindo" loading="lazy" width={768} height={896} className="absolute inset-0 h-full w-full object-cover object-top" />
+          <div className="absolute inset-x-4 bottom-4 rounded-2xl bg-card/95 px-5 py-4 backdrop-blur">
+            <div className="flex items-center justify-between gap-4">
+              <div className="min-w-0">
                 <p className="text-xs font-medium tracking-wide text-muted-foreground uppercase">Para estabelecimentos</p>
-                <h3 className="mt-1 font-display text-xl font-bold">Publique uma Diária em Minutos</h3>
-                <p className="mt-2 max-w-sm text-xs leading-relaxed text-muted-foreground">
-                  Informe função, data, horário, valor e requisitos. Receba candidaturas e selecione quem combina com a vaga.
-                </p>
+                <h3 className="mt-1 truncate font-display text-lg font-bold">Publique uma Diária em Minutos</h3>
               </div>
-              <span className="rounded-full bg-lime px-3 py-1 text-xs font-semibold whitespace-nowrap text-lime-foreground">Grátis</span>
+              <div className="flex shrink-0 items-center gap-2">
+                <span className="hidden rounded-full bg-lime px-3 py-1 text-xs font-semibold whitespace-nowrap text-lime-foreground sm:inline">Grátis</span>
+                <button className={`${pillBase} ${pill.lime} px-5 py-2 text-sm`}>Cadastrar empresa</button>
+              </div>
             </div>
-            <button className={`${pillBase} ${pill.lime} mt-4 px-5 py-2 text-xs`}>Cadastrar empresa</button>
           </div>
         </div>
       </div>
