@@ -1,5 +1,4 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import type { ReactNode } from "react";
 import {
   ArrowLeft,
   ArrowRight,
@@ -22,6 +21,7 @@ import night from "@/assets/zup-night.jpg";
 import p1 from "@/assets/zup-p1.jpg";
 import p2 from "@/assets/zup-p2.jpg";
 import { brl, fmtDate, jobs } from "@/lib/jobs";
+import { ArrowCircle, Footer, Nav, Tag, pill, pillBase } from "@/components/site";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -37,65 +37,7 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-/* ---------------------------------- UI ---------------------------------- */
-
-function Tag({ children }: { children: ReactNode }) {
-  return (
-    <span className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-4 py-1.5 text-xs font-medium text-muted-foreground">
-      {children}
-    </span>
-  );
-}
-
-const pill = {
-  dark: "bg-primary text-primary-foreground hover:bg-ink",
-  lime: "bg-lime text-lime-foreground hover:brightness-95",
-  light: "bg-card text-foreground border border-border hover:bg-surface",
-} as const;
-const pillBase = "inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold transition-colors";
-
-function ArrowCircle({ className = "" }: { className?: string }) {
-  return (
-    <span className={`grid size-9 shrink-0 place-items-center rounded-full border border-border bg-card transition-colors hover:bg-lime ${className}`}>
-      <ArrowUpRight className="size-4" />
-    </span>
-  );
-}
-
-function Mark({ className = "size-7" }: { className?: string }) {
-  return (
-    <span className={`grid place-items-center rounded-md bg-primary text-primary-foreground ${className}`}>
-      <Zap className="size-4" strokeWidth={3} />
-    </span>
-  );
-}
-
 /* -------------------------------- Sections ------------------------------- */
-
-function Nav() {
-  const links: [string, string][] = [["Vagas", "/vagas"], ["Como funciona", "#como-funciona"], ["Empresas", "#empresas"], ["Dicas", "#dicas"], ["Depoimentos", "#depoimentos"]];
-  return (
-    <header className="mx-auto flex max-w-[1400px] items-center justify-between gap-4 px-6 py-5">
-      <Link to="/" className="flex items-center gap-2 font-display text-lg font-bold tracking-tight">
-        <Mark /> ZUP
-      </Link>
-      <nav className="hidden items-center gap-1 rounded-full border border-border bg-card p-1 lg:flex">
-        {links.map(([l, href], i) => (
-          <a key={l} href={href} className={`rounded-full px-4 py-1.5 text-sm font-medium transition-colors ${i === 0 ? "bg-lime text-lime-foreground" : "text-muted-foreground hover:text-foreground"}`}>
-            {l}
-          </a>
-        ))}
-      </nav>
-      <div className="flex items-center gap-3">
-        <Link to="/vagas" className="hidden items-center gap-2 rounded-full border border-border bg-card px-4 py-2 text-sm text-muted-foreground md:flex">
-          <Search className="size-4" /> Buscar diárias
-        </Link>
-        <button className={`${pillBase} ${pill.light} hidden px-5 py-2 sm:inline-flex`}>Entrar</button>
-        <button className={`${pillBase} ${pill.dark} px-5 py-2`}>Criar conta</button>
-      </div>
-    </header>
-  );
-}
 
 function Hero() {
   return (
@@ -123,7 +65,7 @@ function Hero() {
                 <ArrowRight className="size-3" strokeWidth={3} />
               </span>
             </Link>
-            <a href="#empresas" className={`${pillBase} ${pill.light}`}>Publicar uma vaga</a>
+            <a href="/empresas" className={`${pillBase} ${pill.light}`}>Publicar uma vaga</a>
           </div>
         </div>
         <div className="relative">
@@ -550,61 +492,6 @@ function FpvCta() {
         </div>
       </div>
     </section>
-  );
-}
-
-function Footer() {
-  const cols = [
-    { title: "Profissionais", links: ["Buscar diárias", "Criar perfil", "Minhas candidaturas", "Favoritos"] },
-    { title: "Empresas", links: ["Publicar diária", "Cadastro empresarial", "Gerenciar vagas", "Candidatos"] },
-    { title: "Zup", links: ["Sobre nós", "Central de dicas", "Denunciar", "Contato"] },
-  ];
-  return (
-    <footer className="mx-auto max-w-[1400px] px-6 py-16">
-      <div className="grid gap-10 lg:grid-cols-2">
-        <div>
-          <Link to="/" className="flex items-center gap-2 font-display text-lg font-bold"><Mark /> ZUP</Link>
-          <h2 className="mt-6 max-w-md font-display text-4xl font-bold sm:text-5xl">
-            Conectando Quem{" "}<span className="text-muted-foreground/50">Precisa a Quem Faz.</span>
-          </h2>
-          <Link to="/vagas" className={`${pillBase} ${pill.dark} mt-8`}>
-            Encontrar diárias
-            <span className="grid size-5 place-items-center rounded-full bg-lime text-lime-foreground"><ArrowRight className="size-3" strokeWidth={3} /></span>
-          </Link>
-        </div>
-        <div className="grid grid-cols-2 gap-8 sm:grid-cols-4">
-          {cols.map((c) => (
-            <div key={c.title}>
-              <h3 className="text-sm font-semibold">{c.title}</h3>
-              <ul className="mt-4 space-y-2.5">
-                {c.links.map((l) => (
-                  <li key={l}><a href="#" className="text-sm text-muted-foreground transition-colors hover:text-foreground">{l}</a></li>
-                ))}
-              </ul>
-            </div>
-          ))}
-          <div>
-            <h3 className="text-sm font-semibold">Siga o Zup</h3>
-            <div className="mt-4 flex gap-2">
-              {Array.from({ length: 4 }).map((_, i) => (
-                <span key={i} className="grid size-9 place-items-center rounded-full bg-primary text-primary-foreground"><ArrowUpRight className="size-3.5" /></span>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-      <p className="mt-10 max-w-2xl text-xs text-muted-foreground">
-        O Zup apenas facilita a conexão entre estabelecimentos e profissionais. A seleção não representa contratação formal nem garantia de pagamento.
-      </p>
-      <div className="mt-6 flex flex-wrap items-center justify-between gap-4 border-t border-border pt-6 text-xs text-muted-foreground">
-        <p>© 2026 Zup. Todos os direitos reservados.</p>
-        <div className="flex gap-6">
-          <a href="#">Cookies</a>
-          <a href="#">Privacidade</a>
-          <a href="#">Termos de uso</a>
-        </div>
-      </div>
-    </footer>
   );
 }
 
