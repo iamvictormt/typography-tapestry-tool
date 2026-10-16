@@ -56,7 +56,7 @@ function Page() {
 
       <section className="mx-auto max-w-[1400px] px-6 py-20">
         <Tag>Segmentos</Tag>
-        <h2 className="mt-6 text-4xl font-bold sm:text-5xl">Feito Para Negócios Que Não Param</h2>
+        <h2 className="mt-6 font-display text-4xl leading-[1.05] font-bold tracking-tight text-balance sm:text-5xl">Feito Para Negócios Que Não Param</h2>
         <div className="mt-10 grid gap-4 sm:grid-cols-3">
           {segs.map((s) => (
             <article key={s.t} className="group relative overflow-hidden rounded-3xl">

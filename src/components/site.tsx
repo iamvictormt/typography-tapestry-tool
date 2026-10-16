@@ -88,14 +88,44 @@ export function Nav() {
   );
 }
 
+/* ---------------------------- Layout standards ---------------------------- */
+/** Container: every section shares the same max width + gutter */
+export const container = "mx-auto max-w-[1400px] px-6";
+/** Vertical rhythm: every regular section uses the same spacing */
+export const sectionY = "py-20 lg:py-28";
+/** Type scale */
+export const h2Class = "font-display text-4xl leading-[1.05] font-bold tracking-tight text-balance sm:text-5xl";
+export const leadClass = "text-base leading-relaxed text-muted-foreground text-pretty";
+
+/** Standard section heading: tag + title + supporting text (split or centered) */
+export function SectionHeader({ tag, title, text, center = false }: { tag: string; title: ReactNode; text?: string; center?: boolean }) {
+  if (center)
+    return (
+      <div className="mx-auto max-w-2xl text-center">
+        <Tag>{tag}</Tag>
+        <h2 className={`${h2Class} mt-6`}>{title}</h2>
+        {text && <p className={`${leadClass} mx-auto mt-5 max-w-lg`}>{text}</p>}
+      </div>
+    );
+  return (
+    <div>
+      <Tag>{tag}</Tag>
+      <div className="mt-6 grid gap-6 lg:grid-cols-[1.4fr_1fr] lg:items-end">
+        <h2 className={`${h2Class} max-w-2xl`}>{title}</h2>
+        {text && <p className={`${leadClass} max-w-md lg:justify-self-end`}>{text}</p>}
+      </div>
+    </div>
+  );
+}
+
 /** Page intro matching the LP section headings */
 export function PageHeader({ tag, title, text, children }: { tag: string; title: ReactNode; text: string; children?: ReactNode }) {
   return (
-    <section className="mx-auto max-w-[1400px] px-6 pt-16 pb-10">
+    <section className={`${container} pt-16 pb-12 lg:pt-20`}>
       <Tag>{tag}</Tag>
-      <div className="mt-6 flex flex-wrap items-end justify-between gap-6">
-        <h1 className="max-w-3xl text-5xl leading-[1.02] font-extrabold tracking-tight uppercase sm:text-6xl">{title}</h1>
-        <p className="max-w-xs text-sm leading-relaxed text-muted-foreground">{text}</p>
+      <div className="mt-6 grid gap-6 lg:grid-cols-[1.4fr_1fr] lg:items-end">
+        <h1 className="max-w-3xl font-display text-5xl leading-[1.02] font-extrabold tracking-tight text-balance uppercase sm:text-6xl">{title}</h1>
+        <p className={`${leadClass} max-w-md lg:justify-self-end`}>{text}</p>
       </div>
       {children}
     </section>

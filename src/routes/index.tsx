@@ -24,7 +24,7 @@ import night from "@/assets/zup-night.jpg";
 import p1 from "@/assets/zup-p1.jpg";
 import p2 from "@/assets/zup-p2.jpg";
 import { brl, fmtDate, jobs } from "@/lib/jobs";
-import { ArrowCircle, Footer, Nav, Tag, pill, pillBase } from "@/components/site";
+import { ArrowCircle, Footer, Nav, SectionHeader, Tag, container, h2Class, leadClass, pill, pillBase, sectionY } from "@/components/site";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -44,10 +44,10 @@ export const Route = createFileRoute("/")({
 
 function Hero() {
   return (
-    <section className="mx-auto max-w-[1400px] px-6 pt-10 pb-20">
-      <div className="grid items-center gap-10 lg:grid-cols-2">
+    <section className={`${container} pt-12 pb-16 lg:pt-16`}>
+      <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
         <div>
-          <h1 className="text-5xl leading-[1.02] font-extrabold tracking-tight uppercase sm:text-6xl lg:text-7xl">
+          <h1 className="font-display text-5xl leading-[1.02] font-extrabold tracking-tight uppercase sm:text-6xl lg:text-7xl">
             Diárias
             <br />
             e Turnos{" "}
@@ -57,7 +57,7 @@ function Hero() {
               de Você
             </span>
           </h1>
-          <p className="mt-6 max-w-md text-sm leading-relaxed text-muted-foreground">
+          <p className={`${leadClass} mt-6 max-w-md text-lg`}>
             O Zup conecta supermercados, padarias, farmácias e restaurantes a profissionais que buscam uma
             oportunidade de renda — de forma rápida, simples e direta.
           </p>
@@ -125,25 +125,20 @@ const useCases = [
 
 function UseCases() {
   return (
-    <section className="mx-auto max-w-[1400px] px-6 py-20">
+    <section className={`${container} ${sectionY}`}>
       <Tag>Para quem é</Tag>
-      <div className="mt-6 grid gap-6 lg:grid-cols-[1fr_3fr]">
-        <div>
-          <h2 className="text-4xl font-bold sm:text-5xl">
-            Feito para
-            <br />
-            Negócios que
-            <br />
-            Não Param
+      <div className="mt-6 grid gap-10 lg:grid-cols-[1fr_3fr]">
+        <div className="flex flex-col">
+          <h2 className={h2Class}>
+            Feito para Negócios que Não Param
           </h2>
-          <p className="mt-4 max-w-xs text-sm leading-relaxed text-muted-foreground">
+          <p className={`${leadClass} mt-5 max-w-xs`}>
             Padarias, mercados, farmácias, restaurantes e muito mais publicam diárias informando função,
             data, horário, local e remuneração.
           </p>
-          <div className="mt-8 flex gap-2">
-            <span className="grid size-10 place-items-center rounded-full border border-border bg-card"><ArrowLeft className="size-4" /></span>
-            <span className="grid size-10 place-items-center rounded-full border border-border bg-card"><ArrowRight className="size-4" /></span>
-          </div>
+          <Link to="/empresas" className={`${pillBase} ${pill.light} mt-8 w-fit`}>
+            Ver soluções para empresas <ArrowRight className="size-4" />
+          </Link>
         </div>
         <div className="grid gap-4 sm:grid-cols-3">
           {useCases.map((c) => (
@@ -152,7 +147,7 @@ function UseCases() {
                 <img src={c.img} alt={c.title} loading="lazy" width={896} height={1152} className="aspect-[4/5] w-full object-cover transition-transform duration-500 group-hover:scale-105" />
                 <div className="absolute inset-x-3 bottom-3 flex flex-wrap gap-1.5">
                   {c.tags.map((t) => (
-                    <span key={t} className="rounded-full bg-ink/60 px-3 py-1 text-[11px] font-medium text-primary-foreground backdrop-blur">{t}</span>
+                    <span key={t} className="rounded-full bg-ink/60 px-3 py-1 text-xs font-medium text-primary-foreground backdrop-blur">{t}</span>
                   ))}
                 </div>
               </div>
@@ -177,14 +172,12 @@ const pains = [
 
 function Guidance() {
   return (
-    <section id="empresas" className="mx-auto max-w-[1400px] px-6 py-20">
-      <Tag>Problemas & Soluções</Tag>
-      <div className="mt-6 flex flex-wrap items-end justify-between gap-6">
-        <h2 className="max-w-xl text-4xl font-bold sm:text-5xl">Encontrar Reforço Não Deveria Ser Complicado</h2>
-        <p className="max-w-xs text-sm leading-relaxed text-muted-foreground">
-          Publique a oportunidade, veja quem tem interesse e converse direto com o profissional escolhido.
-        </p>
-      </div>
+    <section id="empresas" className={`${container} ${sectionY}`}>
+      <SectionHeader
+        tag="Problemas & Soluções"
+        title="Encontrar Reforço Não Deveria Ser Complicado"
+        text="Publique a oportunidade, veja quem tem interesse e converse direto com o profissional escolhido."
+      />
       <div className="mt-10 grid gap-4 lg:grid-cols-2">
         <div className="flex flex-col gap-3">
           {pains.map((p, i) => (
@@ -218,7 +211,7 @@ function Guidance() {
 function Moment() {
   return (
     <section className="relative overflow-hidden">
-      <img src={moment} alt="Comércio de rua ao entardecer" loading="lazy" width={1600} height={912} className="h-[70vh] w-full object-cover" />
+      <img src={moment} alt="Comércio de rua ao entardecer" loading="lazy" width={1600} height={912} className="h-[60vh] min-h-[440px] w-full object-cover" />
       <div className="absolute inset-0 bg-gradient-to-t from-ink/80 via-transparent to-transparent" />
       <div className="absolute inset-x-0 bottom-0 pb-14 text-center text-primary-foreground">
         <Tag>Uma nova forma de trabalhar</Tag>
@@ -227,7 +220,7 @@ function Moment() {
           <br />
           Você Quiser
         </h2>
-        <p className="mx-auto mt-3 max-w-sm text-sm text-primary-foreground/70">
+        <p className="mx-auto mt-4 max-w-md text-base text-primary-foreground/75">
           Cada turno é uma oportunidade de ganhar, aprender e ser lembrado para a próxima.
         </p>
       </div>
@@ -240,12 +233,13 @@ const catImg: Record<string, string> = { Estoque: market, Caixa: market, Farmác
 function Products() {
   const filters = ["Atendimento", "Cozinha", "Estoque", "Farmácia", "Todas"];
   return (
-    <section className="mx-auto max-w-[1400px] px-6 py-24 text-center">
-      <Tag>Oportunidades abertas</Tag>
-      <h2 className="mx-auto mt-6 max-w-lg text-4xl font-bold sm:text-5xl">Diárias Desta Semana</h2>
-      <p className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-muted-foreground">
-        Encontre oportunidades próximas, filtre por categoria e remuneração e candidate-se em poucos toques.
-      </p>
+    <section className={`${container} ${sectionY} text-center`}>
+      <SectionHeader
+        center
+        tag="Oportunidades abertas"
+        title="Diárias Desta Semana"
+        text="Encontre oportunidades próximas, filtre por categoria e remuneração e candidate-se em poucos toques."
+      />
       <div className="mt-8 flex flex-wrap justify-center gap-2">
         {filters.map((f) => (
           <Link key={f} to="/vagas" search={f === "Todas" ? {} : { categoria: f }} className={`rounded-full px-5 py-2 text-sm font-medium transition-colors ${f === "Todas" ? "bg-lime text-lime-foreground" : "border border-border bg-card text-muted-foreground hover:text-foreground"}`}>
@@ -261,7 +255,7 @@ function Products() {
             </div>
             <div className="mt-3 flex flex-wrap gap-1.5">
               {[j.category, fmtDate(j.date), `${j.start}–${j.end}`].map((t) => (
-                <span key={t} className="rounded-full bg-surface px-3 py-1 text-[11px] font-medium text-muted-foreground">{t}</span>
+                <span key={t} className="rounded-full bg-surface px-3 py-1 text-xs font-medium text-muted-foreground">{t}</span>
               ))}
             </div>
             <div className="mt-4 flex items-center justify-between gap-3">
@@ -291,19 +285,18 @@ function Learn() {
     { tag: "Dicas", title: "5 atitudes que fazem você ser chamado de novo", time: "4 min de leitura" },
   ];
   return (
-    <section id="dicas" className="mx-auto max-w-[1400px] px-6 py-20">
-      <div className="text-center">
-        <Tag>Central de dicas</Tag>
-        <h2 className="mt-6 text-4xl font-bold sm:text-5xl">Prepare-se Para o Próximo Turno</h2>
-        <p className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-muted-foreground">
-          Guias para profissionais e estabelecimentos aproveitarem o melhor do Zup.
-        </p>
-      </div>
+    <section id="dicas" className={`${container} ${sectionY}`}>
+      <SectionHeader
+        center
+        tag="Central de dicas"
+        title="Prepare-se Para o Próximo Turno"
+        text="Guias para profissionais e estabelecimentos aproveitarem o melhor do Zup."
+      />
       <div className="mt-10 grid gap-4 lg:grid-cols-5">
         <article className="relative overflow-hidden rounded-3xl lg:col-span-2">
           <img src={p2} alt="Profissional sorrindo" loading="lazy" width={768} height={896} className="h-full min-h-[320px] w-full object-cover object-top" />
           <div className="absolute inset-x-4 bottom-4 rounded-2xl bg-ink/60 p-5 text-primary-foreground backdrop-blur">
-            <span className="rounded-full bg-lime px-3 py-1 text-[11px] font-semibold text-lime-foreground">Novo guia</span>
+            <span className="rounded-full bg-lime px-3 py-1 text-xs font-semibold text-lime-foreground">Novo guia</span>
             <h3 className="mt-3 font-display text-2xl font-bold">Sua Primeira Diária no Zup</h3>
             <p className="mt-1 text-xs text-primary-foreground/70">Cadastro, candidatura e o que levar no dia</p>
           </div>
@@ -311,7 +304,7 @@ function Learn() {
         <div className="grid gap-4 sm:grid-cols-2 lg:col-span-3">
           {articles.map((a) => (
             <article key={a.title} className="flex flex-col justify-between rounded-3xl border border-border bg-card p-6 transition-colors hover:bg-surface">
-              <span className="w-fit rounded-full bg-surface px-3 py-1 text-[11px] font-medium text-muted-foreground">{a.tag}</span>
+              <span className="w-fit rounded-full bg-surface px-3 py-1 text-xs font-medium text-muted-foreground">{a.tag}</span>
               <div>
                 <h3 className="mt-6 font-display text-lg leading-snug font-bold">{a.title}</h3>
                 <p className="mt-3 flex items-center gap-1.5 text-xs text-muted-foreground"><Clock className="size-3.5" /> {a.time}</p>
@@ -337,18 +330,12 @@ function MoreThanStore() {
     ["8 mil+", "profissionais cadastrados"],
   ];
   return (
-    <section className="mx-auto max-w-[1400px] px-6 py-20">
-      <Tag>Por que o Zup</Tag>
-      <div className="mt-6 flex flex-wrap items-end justify-between gap-6">
-        <h2 className="text-4xl font-bold sm:text-5xl">
-          Mais que um
-          <br />
-          Mural de Vagas
-        </h2>
-        <p className="max-w-xs text-sm leading-relaxed text-muted-foreground">
-          Do anúncio ao primeiro contato, o Zup organiza cada etapa da conexão entre as partes.
-        </p>
-      </div>
+    <section className={`${container} ${sectionY}`}>
+      <SectionHeader
+        tag="Por que o Zup"
+        title={<>Mais que um<br />Mural de Vagas</>}
+        text="Do anúncio ao primeiro contato, o Zup organiza cada etapa da conexão entre as partes."
+      />
       <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {features.map((f) => (
           <div key={f.t} className="rounded-3xl border border-border bg-card p-6 transition-colors hover:bg-surface">
@@ -415,21 +402,18 @@ const howPaths = [
 
 function HowItWorks() {
   return (
-    <section id="como-funciona" className="mx-auto max-w-[1400px] px-6 py-20">
-      <div className="text-center">
-        <Tag>Como funciona</Tag>
-        <h2 className="mx-auto mt-6 max-w-xl text-4xl font-bold sm:text-5xl">
-          Simples Para os Dois Lados
-        </h2>
-        <p className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-muted-foreground">
-          Do anúncio ao primeiro contato, o caminho é curto: publicar, encontrar e conversar.
-        </p>
-      </div>
+    <section id="como-funciona" className={`${container} ${sectionY}`}>
+      <SectionHeader
+        center
+        tag="Como funciona"
+        title="Simples Para os Dois Lados"
+        text="Do anúncio ao primeiro contato, o caminho é curto: publicar, encontrar e conversar."
+      />
       <div className="mt-10 grid gap-4 lg:grid-cols-2">
         {howPaths.map((path, pi) => (
           <article key={path.label} className="flex flex-col rounded-3xl border border-border bg-card p-8">
             <div className="flex items-center justify-between gap-4">
-              <span className={`rounded-full px-3 py-1 text-[11px] font-semibold ${pi === 1 ? "bg-lime text-lime-foreground" : "bg-surface text-muted-foreground"}`}>
+              <span className={`rounded-full px-3 py-1 text-xs font-semibold ${pi === 1 ? "bg-lime text-lime-foreground" : "bg-surface text-muted-foreground"}`}>
                 {path.label}
               </span>
               <h3 className="font-display text-xl font-bold">{path.title}</h3>
@@ -500,22 +484,16 @@ function Testimonials() {
   const next = () => setActive((a) => (a + 1) % testimonials.length);
 
   return (
-    <section id="depoimentos" className="mx-auto max-w-[1400px] px-6 py-20">
-      <Tag>Depoimentos</Tag>
-      <div className="mt-6 flex flex-wrap items-end justify-between gap-6">
-        <h2 className="text-4xl font-bold sm:text-5xl">
-          Quem Precisa.
-          <br />
-          Quem Quer Trabalhar.
-        </h2>
-        <p className="max-w-xs text-sm leading-relaxed text-muted-foreground">
-          Estabelecimentos e profissionais usam o Zup para se encontrar com mais rapidez e confiança.
-        </p>
-      </div>
+    <section id="depoimentos" className={`${container} ${sectionY}`}>
+      <SectionHeader
+        tag="Depoimentos"
+        title={<>Quem Precisa.<br />Quem Quer Trabalhar.</>}
+        text="Estabelecimentos e profissionais usam o Zup para se encontrar com mais rapidez e confiança."
+      />
       <div className="mt-10 grid gap-4 lg:grid-cols-[1.2fr_1fr]">
         <figure className="flex flex-col justify-between rounded-3xl border border-border bg-card p-8 sm:p-10">
           <div>
-            <span className={`rounded-full px-3 py-1 text-[11px] font-semibold ${t.side === "Profissional" ? "bg-lime text-lime-foreground" : "bg-surface text-muted-foreground"}`}>
+            <span className={`rounded-full px-3 py-1 text-xs font-semibold ${t.side === "Profissional" ? "bg-lime text-lime-foreground" : "bg-surface text-muted-foreground"}`}>
               {t.side}
             </span>
             <blockquote className="mt-6 font-display text-xl leading-snug font-bold sm:text-2xl">
@@ -554,7 +532,7 @@ function Testimonials() {
                 <div className="min-w-0">
                   <div className="flex items-center gap-2">
                     <p className="truncate font-display font-bold">{x.name}</p>
-                    <span className={`shrink-0 rounded-full px-2 py-0.5 text-[10px] font-semibold ${x.side === "Profissional" ? "bg-lime text-lime-foreground" : "bg-surface text-muted-foreground"}`}>{x.side}</span>
+                    <span className={`shrink-0 rounded-full px-2 py-0.5 text-xs font-semibold ${x.side === "Profissional" ? "bg-lime text-lime-foreground" : "bg-surface text-muted-foreground"}`}>{x.side}</span>
                   </div>
                   <p className="mt-1 line-clamp-2 text-sm leading-relaxed text-muted-foreground">"{x.quote}"</p>
                 </div>
@@ -574,7 +552,7 @@ function FpvCta() {
   ];
   return (
     <section className="relative overflow-hidden">
-      <img src={night} alt="Profissional olhando o celular em frente a um supermercado" loading="lazy" width={1600} height={912} className="h-[75vh] w-full object-cover" />
+      <img src={night} alt="Profissional olhando o celular em frente a um supermercado" loading="lazy" width={1600} height={912} className="h-[70vh] min-h-[520px] w-full object-cover" />
       <div className="absolute inset-0 bg-ink/40" />
       <div className="absolute inset-x-0 bottom-0 pb-14 text-center text-primary-foreground">
         <h2 className="font-display text-4xl font-bold sm:text-6xl">
@@ -582,7 +560,7 @@ function FpvCta() {
           <br />
           Está a um Toque.
         </h2>
-        <p className="mx-auto mt-3 max-w-sm text-sm text-primary-foreground/70">
+        <p className="mx-auto mt-4 max-w-md text-base text-primary-foreground/75">
           Crie seu perfil, ative os alertas e receba oportunidades perto de você.
         </p>
         <div className="mx-auto mt-8 flex max-w-xl flex-wrap justify-center gap-3 px-6">
@@ -590,7 +568,7 @@ function FpvCta() {
             <div key={s.k} className={`flex items-center gap-3 rounded-2xl px-5 py-3 text-left ${i === 2 ? "bg-lime text-lime-foreground" : "bg-card text-foreground"}`}>
               <div>
                 <p className="font-display text-lg font-extrabold">{s.k}</p>
-                <p className="text-[11px] font-medium opacity-70">{s.v}</p>
+                <p className="text-xs font-medium opacity-70">{s.v}</p>
               </div>
               <BadgeCheck className="size-4 opacity-70" />
             </div>
@@ -607,13 +585,13 @@ function Index() {
       <Nav />
       <Hero />
       <UseCases />
+      <HowItWorks />
+      <Products />
       <Guidance />
       <Moment />
-      <Products />
-      <Learn />
       <MoreThanStore />
-      <HowItWorks />
       <Testimonials />
+      <Learn />
       <FpvCta />
       <Footer />
     </main>
