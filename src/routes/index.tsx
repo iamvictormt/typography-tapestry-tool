@@ -310,37 +310,61 @@ function Manifesto() {
     ["1.800", "estabelecimentos"],
     ["4,8", "nota média dos turnos"],
   ];
+  const reasons = [
+    ["Contato direto", "Empresa e profissional conversam sem intermediário e sem taxa de agência."],
+    ["Perto de casa", "Filtre por distância, categoria e remuneração antes de se candidatar."],
+    ["Quem é quem", "Perfil com experiência e avaliações dos dois lados, antes de fechar o turno."],
+    ["Grátis para quem trabalha", "Profissional não paga nada para ver diárias e se candidatar."],
+  ];
   return (
-    <section className={`${wrap} py-24 lg:py-32`}>
-      <div className="grid gap-12 lg:grid-cols-12">
-        <p className="text-sm font-medium text-muted-foreground lg:col-span-3">03 — Por que Zup</p>
-        <div className="lg:col-span-9">
-          <p className="font-display text-3xl leading-[1.2] font-semibold tracking-tight text-balance sm:text-5xl">
-            Sem agência, sem taxa escondida, sem grupo de WhatsApp lotado.{" "}
-            <span className="text-muted-foreground">Só quem precisa de alguém hoje e quem quer trabalhar hoje — frente a frente.</span>
-          </p>
-          <div className="mt-16 grid gap-px overflow-hidden rounded-[1.75rem] bg-border sm:grid-cols-3">
-            {stats.map(([n, l]) => (
-              <div key={l} className="bg-background p-8">
-                <p className="font-display text-5xl font-bold tracking-tight">{n}</p>
-                <p className="mt-2 text-sm text-muted-foreground">{l}</p>
-              </div>
-            ))}
+    <section id="porque" className={`${wrap} scroll-mt-20 py-24 lg:py-32`}>
+      <p className="mb-4 text-sm font-medium text-muted-foreground">03 — Por que Zup</p>
+      <div className="grid gap-8 lg:grid-cols-2 lg:items-end">
+        <h2 className="font-display text-5xl leading-[1] font-bold tracking-tight text-balance sm:text-6xl">
+          Sem agência, sem taxa escondida, sem grupo de WhatsApp lotado.
+        </h2>
+        <p className="max-w-md text-lg leading-relaxed text-muted-foreground text-pretty lg:pb-3">
+          Só quem precisa de alguém hoje e quem quer trabalhar hoje — frente a frente.
+        </p>
+      </div>
+
+      <div className="mt-14 grid gap-4 lg:grid-cols-12">
+        <ul className="grid gap-4 sm:grid-cols-2 lg:col-span-7">
+          {reasons.map(([t, d]) => (
+            <li key={t} className="rounded-[1.75rem] bg-card p-7">
+              <span className="grid size-9 place-items-center rounded-full bg-lime text-lime-foreground">
+                <Check className="size-4" />
+              </span>
+              <h3 className="mt-5 font-display text-xl font-semibold">{t}</h3>
+              <p className="mt-2 leading-relaxed text-muted-foreground">{d}</p>
+            </li>
+          ))}
+        </ul>
+        <div className="relative min-h-[440px] overflow-hidden rounded-[1.75rem] lg:col-span-5">
+          <img
+            src={why}
+            alt="Profissional organizando as prateleiras de um mercado de bairro"
+            loading="lazy"
+            width={912}
+            height={1200}
+            className="absolute inset-0 size-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/20" />
+          <div className="absolute inset-x-7 bottom-7">
+            <p className="font-display text-3xl leading-tight font-bold text-balance text-primary-foreground">
+              Em média, 8 minutos até o primeiro interessado.
+            </p>
           </div>
-          <ul className="mt-10 grid gap-4 sm:grid-cols-2">
-            {[
-              "Contato direto entre empresa e profissional",
-              "Vagas filtradas por distância e categoria",
-              "Perfis com experiência e avaliações",
-              "Grátis para profissionais",
-            ].map((t) => (
-              <li key={t} className="flex items-center gap-3">
-                <span className="grid size-6 place-items-center rounded-full bg-lime text-lime-foreground"><Check className="size-3.5" /></span>
-                {t}
-              </li>
-            ))}
-          </ul>
         </div>
+      </div>
+
+      <div className="mt-4 grid gap-px overflow-hidden rounded-[1.75rem] bg-border sm:grid-cols-3">
+        {stats.map(([n, l]) => (
+          <div key={l} className="bg-background p-10">
+            <p className="font-display text-6xl font-bold tracking-tight">{n}</p>
+            <p className="mt-3 text-sm text-muted-foreground">{l}</p>
+          </div>
+        ))}
       </div>
     </section>
   );
