@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { ArrowRight, ArrowUpRight, Clock, MapPin, Plus, Star, Check, MessageCircle } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Plus, Star, Check, MessageCircle } from "lucide-react";
 import hero from "@/assets/zup-hero.jpg";
 import market from "@/assets/zup-market.jpg";
 import pharmacy from "@/assets/zup-pharmacy.jpg";
@@ -48,7 +48,6 @@ function Home() {
       <Hero />
       <Marquee />
       <HowItWorks />
-      <Board />
       <Manifesto />
       <Voices />
       <Faq />
@@ -70,7 +69,6 @@ function Logo() {
 function Header() {
   const links = [
     ["Como funciona", "#como-funciona"],
-    ["Diárias", "#diarias"],
     ["Depoimentos", "#depoimentos"],
     ["Dúvidas", "#duvidas"],
   ];
@@ -273,74 +271,6 @@ function HowItWorks() {
   );
 }
 
-function Board() {
-  const filters = ["Todas", "Supermercado", "Farmácia", "Restaurante", "Padaria"];
-  const [active, setActive] = useState("Todas");
-  const list = shifts.filter((s) => active === "Todas" || s.category === active);
-  return (
-    <section id="diarias" className="scroll-mt-16 bg-ink py-24 text-primary-foreground lg:py-32">
-      <div className={wrap}>
-        <div className="grid gap-8 lg:grid-cols-2 lg:items-end">
-          <div>
-            <p className="mb-4 flex items-center gap-2 text-sm font-medium text-primary-foreground/60">
-              <span className="size-2 animate-pulse rounded-full bg-lime" /> 02 — Diárias abertas
-            </p>
-            <h2 className="font-display text-5xl leading-[1] font-bold tracking-tight sm:text-6xl">
-              O quadro de turnos <span className="text-lime">ao vivo.</span>
-            </h2>
-          </div>
-          <div className="flex flex-wrap gap-2 lg:justify-end">
-            {filters.map((f) => (
-              <button
-                key={f}
-                onClick={() => setActive(f)}
-                className={`rounded-full border px-4 py-2 text-sm transition-colors ${
-                  active === f ? "border-lime bg-lime text-lime-foreground" : "border-primary-foreground/20 text-primary-foreground/80 hover:border-primary-foreground/50"
-                }`}
-              >
-                {f}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        <div className="mt-14 grid gap-4 md:grid-cols-2">
-          {list.map((s) => (
-            <article key={s.role} className="group grid grid-cols-[120px_1fr] overflow-hidden rounded-[1.75rem] bg-card text-card-foreground sm:grid-cols-[180px_1fr]">
-              <div className="relative overflow-hidden">
-                <img src={s.img} alt={s.place} className="absolute inset-0 size-full object-cover transition-transform duration-500 group-hover:scale-105" />
-              </div>
-              <div className="flex flex-col p-6">
-                <div className="flex items-center justify-between gap-3">
-                  <span className="rounded-full bg-muted px-3 py-1 text-xs font-medium">{s.category}</span>
-                  <span className="text-xs font-semibold text-muted-foreground">{s.day}</span>
-                </div>
-                <h3 className="mt-4 font-display text-2xl font-semibold leading-tight">{s.role}</h3>
-                <p className="mt-1 text-sm text-muted-foreground">{s.place}</p>
-                <div className="mt-4 flex flex-wrap gap-x-5 gap-y-1 text-sm text-muted-foreground">
-                  <span className="flex items-center gap-1.5"><Clock className="size-4" /> {s.time}</span>
-                  <span className="flex items-center gap-1.5"><MapPin className="size-4" /> {s.area}</span>
-                </div>
-                <div className="mt-6 flex items-center justify-between border-t border-dashed border-border pt-5">
-                  <p className="font-display text-3xl font-bold">
-                    R$ {s.pay}<span className="ml-1 text-sm font-medium text-muted-foreground">/diária</span>
-                  </p>
-                  <a href="#comecar" className="inline-flex items-center gap-1.5 rounded-full bg-ink px-4 py-2.5 text-sm font-semibold text-primary-foreground transition-colors group-hover:bg-lime group-hover:text-lime-foreground">
-                    Candidatar <ArrowUpRight className="size-4" />
-                  </a>
-                </div>
-              </div>
-            </article>
-          ))}
-        </div>
-        <a href="#comecar" className="mt-10 inline-flex items-center gap-2 font-medium text-lime">
-          Ver todas as diárias <ArrowRight className="size-4" />
-        </a>
-      </div>
-    </section>
-  );
-}
-
 
 function Manifesto() {
   const stats = [
@@ -356,7 +286,7 @@ function Manifesto() {
   ];
   return (
     <section id="porque" className={`${wrap} scroll-mt-20 py-24 lg:py-32`}>
-      <p className="mb-4 text-sm font-medium text-muted-foreground">03 — Por que Zup</p>
+      <p className="mb-4 text-sm font-medium text-muted-foreground">02 — Por que Zup</p>
       <div className="grid gap-8 lg:grid-cols-2 lg:items-end">
         <h2 className="font-display text-5xl leading-[1] font-bold tracking-tight text-balance sm:text-6xl">
           Sem agência, sem taxa escondida, sem grupo de WhatsApp lotado.
@@ -416,7 +346,7 @@ const voices = [
 function Voices() {
   return (
     <section id="depoimentos" className={`${wrap} scroll-mt-20 pb-24 lg:pb-32`}>
-      <p className="mb-4 text-sm font-medium text-muted-foreground">04 — Quem usa</p>
+      <p className="mb-4 text-sm font-medium text-muted-foreground">03 — Quem usa</p>
       <div className="grid gap-8 lg:grid-cols-2 lg:items-end">
         <h2 className="font-display text-5xl leading-[1] font-bold tracking-tight text-balance sm:text-6xl">
           Quem já trocou um turno, <span className="text-lime">conta melhor.</span>
@@ -459,9 +389,12 @@ function Faq() {
   return (
     <section id="duvidas" className={`${wrap} scroll-mt-20 py-24 lg:py-32`}>
       <div className="grid gap-8 lg:grid-cols-2 lg:items-end">
-        <h2 className="font-display text-5xl leading-[1] font-bold tracking-tight text-balance sm:text-6xl">
-          Perguntas que todo mundo faz <span className="text-lime">antes do primeiro turno.</span>
-        </h2>
+        <div>
+          <p className="mb-4 text-sm font-medium text-muted-foreground">04 — Dúvidas</p>
+          <h2 className="font-display text-5xl leading-[1] font-bold tracking-tight text-balance sm:text-6xl">
+            Perguntas que todo mundo faz <span className="text-lime">antes do primeiro turno.</span>
+          </h2>
+        </div>
         <p className="max-w-md text-lg leading-relaxed text-muted-foreground text-pretty lg:pb-3">
           Se a sua não estiver na lista, é só falar com a gente.
         </p>
@@ -523,26 +456,77 @@ function Faq() {
 
 function FinalCta() {
   return (
-    <section id="comecar" className={`${wrap} scroll-mt-20 pb-24`}>
-      <div className="grid gap-4 lg:grid-cols-2">
-        <div className="flex min-h-[340px] flex-col justify-between rounded-[2rem] bg-ink p-10 text-primary-foreground">
-          <p className="text-sm text-primary-foreground/60">Para profissionais</p>
-          <div>
-            <h3 className="font-display text-4xl leading-tight font-bold sm:text-5xl">Seu próximo turno<br />está a uma rua.</h3>
-            <a href="#top" className="mt-8 inline-flex items-center gap-2 rounded-full bg-lime px-6 py-3.5 font-medium text-lime-foreground">
+    <section id="comecar" className={`${wrap} scroll-mt-20 py-24 lg:py-32`}>
+      <div className="grid gap-8 lg:grid-cols-2 lg:items-end">
+        <div>
+          <p className="mb-4 text-sm font-medium text-muted-foreground">05 — Começar</p>
+          <h2 className="font-display text-5xl leading-[1] font-bold tracking-tight text-balance sm:text-6xl">
+            Escolha o seu lado e <span className="text-lime">comece agora.</span>
+          </h2>
+        </div>
+        <p className="max-w-md text-lg leading-relaxed text-muted-foreground text-pretty lg:pb-3">
+          Dos dois lados, levar menos de dois minutos é o normal.
+        </p>
+      </div>
+
+      <div className="mt-14 grid gap-6 lg:grid-cols-2">
+        <article className="group flex flex-col overflow-hidden rounded-[2rem] bg-ink text-primary-foreground">
+          <div className="h-52 overflow-hidden lg:h-64">
+            <img src={p1} alt="Profissional em loja" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
+          </div>
+          <div className="flex flex-1 flex-col justify-between gap-10 p-8 lg:p-10">
+            <div>
+              <p className="text-sm font-medium text-primary-foreground/60">Para profissionais</p>
+              <h3 className="mt-4 font-display text-4xl leading-[1.05] font-bold tracking-tight text-balance sm:text-5xl">
+                Seu próximo turno está a uma rua.
+              </h3>
+              <ul className="mt-7 space-y-3">
+                {[
+                  "Perfil em dois minutos, sem currículo",
+                  "Diárias perto de casa, filtradas por categoria",
+                  "Candidate-se e converse direto com o comércio",
+                ].map((t) => (
+                  <li key={t} className="flex items-start gap-3 text-primary-foreground/70">
+                    <Check className="mt-1 size-4 shrink-0 text-lime" />
+                    <span className="leading-snug">{t}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <a href="#top" className="inline-flex w-fit items-center gap-2 rounded-full bg-lime px-6 py-3.5 font-medium text-lime-foreground transition-transform hover:-translate-y-0.5">
               Criar perfil grátis <ArrowUpRight className="size-4" />
             </a>
           </div>
-        </div>
-        <div className="flex min-h-[340px] flex-col justify-between rounded-[2rem] bg-lime p-10 text-lime-foreground">
-          <p className="text-sm opacity-70">Para estabelecimentos</p>
-          <div>
-            <h3 className="font-display text-4xl leading-tight font-bold sm:text-5xl">Cubra a escala<br />ainda hoje.</h3>
-            <a href="#top" className="mt-8 inline-flex items-center gap-2 rounded-full bg-ink px-6 py-3.5 font-medium text-primary-foreground">
+        </article>
+
+        <article className="group flex flex-col overflow-hidden rounded-[2rem] bg-lime text-lime-foreground">
+          <div className="h-52 overflow-hidden lg:h-64">
+            <img src={market} alt="Comércio" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
+          </div>
+          <div className="flex flex-1 flex-col justify-between gap-10 p-8 lg:p-10">
+            <div>
+              <p className="text-sm font-medium opacity-70">Para estabelecimentos</p>
+              <h3 className="mt-4 font-display text-4xl leading-[1.05] font-bold tracking-tight text-balance sm:text-5xl">
+                Cubra a escala ainda hoje.
+              </h3>
+              <ul className="mt-7 space-y-3">
+                {[
+                  "Publique função, data, horário e valor",
+                  "Veja quem se candidatou, perto ou longe",
+                  "Escolha, combine e pague direto",
+                ].map((t) => (
+                  <li key={t} className="flex items-start gap-3 opacity-80">
+                    <Check className="mt-1 size-4 shrink-0" />
+                    <span className="leading-snug">{t}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <a href="#top" className="inline-flex w-fit items-center gap-2 rounded-full bg-ink px-6 py-3.5 font-medium text-primary-foreground transition-transform hover:-translate-y-0.5">
               Publicar uma diária <ArrowUpRight className="size-4" />
             </a>
           </div>
-        </div>
+        </article>
       </div>
     </section>
   );
