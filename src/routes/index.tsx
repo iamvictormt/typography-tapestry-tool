@@ -178,17 +178,17 @@ function Guidance() {
         title="Encontrar Reforço Não Deveria Ser Complicado"
         text="Publique a oportunidade, veja quem tem interesse e converse direto com o profissional escolhido."
       />
-      <div className="mt-10 grid gap-4 lg:grid-cols-2">
+      <div className="mt-10 grid items-stretch gap-4 lg:grid-cols-2">
         <div className="flex flex-col gap-3">
           {pains.map((p, i) => (
-            <div key={p} className="flex items-center gap-6 rounded-3xl border border-border bg-card p-5 transition-colors hover:bg-surface">
+            <div key={p} className="flex flex-1 items-center gap-6 rounded-3xl border border-border bg-card p-5 transition-colors hover:bg-surface">
               <span className="font-display text-4xl font-extrabold text-muted-foreground/30">{String(i + 1).padStart(2, "0")}</span>
               <p className="text-sm font-medium sm:text-base">{p}</p>
             </div>
           ))}
         </div>
-        <div className="relative overflow-hidden rounded-3xl">
-          <img src={p1} alt="Dona de restaurante sorrindo" loading="lazy" width={768} height={896} className="h-full min-h-[420px] w-full object-cover object-top" />
+        <div className="relative min-h-[380px] overflow-hidden rounded-3xl lg:min-h-0">
+          <img src={p1} alt="Dona de restaurante sorrindo" loading="lazy" width={768} height={896} className="absolute inset-0 h-full w-full object-cover object-top" />
           <div className="absolute inset-x-4 bottom-4 rounded-2xl bg-card/95 p-5 backdrop-blur">
             <div className="flex items-start justify-between gap-4">
               <div>
