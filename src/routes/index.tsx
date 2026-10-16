@@ -131,7 +131,7 @@ function Hero() {
             <img src={hero} alt="Profissional sorrindo durante o turno" className="h-[520px] w-full object-cover" />
             <div className="absolute inset-0 bg-gradient-to-t from-ink/70 via-transparent" />
             <div className="absolute inset-x-4 bottom-4">
-              <ShiftTicket s={shifts[0]} />
+              <ShiftTicket s={shifts[0]!} />
             </div>
           </div>
           <div className="absolute -top-5 -left-5 hidden rounded-2xl bg-lime p-4 text-lime-foreground shadow-xl sm:block">
