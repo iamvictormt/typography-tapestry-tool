@@ -24,7 +24,7 @@ import night from "@/assets/zup-night.jpg";
 import p1 from "@/assets/zup-p1.jpg";
 import p2 from "@/assets/zup-p2.jpg";
 import { brl, fmtDate, jobs } from "@/lib/jobs";
-import { ArrowCircle, Footer, Nav, Tag, pill, pillBase } from "@/components/site";
+import { ArrowCircle, Footer, Nav, SectionHeader, Tag, container, h2Class, leadClass, pill, pillBase, sectionY } from "@/components/site";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -147,7 +147,7 @@ function UseCases() {
                 <img src={c.img} alt={c.title} loading="lazy" width={896} height={1152} className="aspect-[4/5] w-full object-cover transition-transform duration-500 group-hover:scale-105" />
                 <div className="absolute inset-x-3 bottom-3 flex flex-wrap gap-1.5">
                   {c.tags.map((t) => (
-                    <span key={t} className="rounded-full bg-ink/60 px-3 py-1 text-[11px] font-medium text-primary-foreground backdrop-blur">{t}</span>
+                    <span key={t} className="rounded-full bg-ink/60 px-3 py-1 text-xs font-medium text-primary-foreground backdrop-blur">{t}</span>
                   ))}
                 </div>
               </div>
@@ -211,7 +211,7 @@ function Guidance() {
 function Moment() {
   return (
     <section className="relative overflow-hidden">
-      <img src={moment} alt="Comércio de rua ao entardecer" loading="lazy" width={1600} height={912} className="h-[70vh] w-full object-cover" />
+      <img src={moment} alt="Comércio de rua ao entardecer" loading="lazy" width={1600} height={912} className="h-[60vh] min-h-[440px] w-full object-cover" />
       <div className="absolute inset-0 bg-gradient-to-t from-ink/80 via-transparent to-transparent" />
       <div className="absolute inset-x-0 bottom-0 pb-14 text-center text-primary-foreground">
         <Tag>Uma nova forma de trabalhar</Tag>
@@ -220,7 +220,7 @@ function Moment() {
           <br />
           Você Quiser
         </h2>
-        <p className="mx-auto mt-3 max-w-sm text-sm text-primary-foreground/70">
+        <p className="mx-auto mt-4 max-w-md text-base text-primary-foreground/75">
           Cada turno é uma oportunidade de ganhar, aprender e ser lembrado para a próxima.
         </p>
       </div>
@@ -255,7 +255,7 @@ function Products() {
             </div>
             <div className="mt-3 flex flex-wrap gap-1.5">
               {[j.category, fmtDate(j.date), `${j.start}–${j.end}`].map((t) => (
-                <span key={t} className="rounded-full bg-surface px-3 py-1 text-[11px] font-medium text-muted-foreground">{t}</span>
+                <span key={t} className="rounded-full bg-surface px-3 py-1 text-xs font-medium text-muted-foreground">{t}</span>
               ))}
             </div>
             <div className="mt-4 flex items-center justify-between gap-3">
@@ -296,7 +296,7 @@ function Learn() {
         <article className="relative overflow-hidden rounded-3xl lg:col-span-2">
           <img src={p2} alt="Profissional sorrindo" loading="lazy" width={768} height={896} className="h-full min-h-[320px] w-full object-cover object-top" />
           <div className="absolute inset-x-4 bottom-4 rounded-2xl bg-ink/60 p-5 text-primary-foreground backdrop-blur">
-            <span className="rounded-full bg-lime px-3 py-1 text-[11px] font-semibold text-lime-foreground">Novo guia</span>
+            <span className="rounded-full bg-lime px-3 py-1 text-xs font-semibold text-lime-foreground">Novo guia</span>
             <h3 className="mt-3 font-display text-2xl font-bold">Sua Primeira Diária no Zup</h3>
             <p className="mt-1 text-xs text-primary-foreground/70">Cadastro, candidatura e o que levar no dia</p>
           </div>
@@ -304,7 +304,7 @@ function Learn() {
         <div className="grid gap-4 sm:grid-cols-2 lg:col-span-3">
           {articles.map((a) => (
             <article key={a.title} className="flex flex-col justify-between rounded-3xl border border-border bg-card p-6 transition-colors hover:bg-surface">
-              <span className="w-fit rounded-full bg-surface px-3 py-1 text-[11px] font-medium text-muted-foreground">{a.tag}</span>
+              <span className="w-fit rounded-full bg-surface px-3 py-1 text-xs font-medium text-muted-foreground">{a.tag}</span>
               <div>
                 <h3 className="mt-6 font-display text-lg leading-snug font-bold">{a.title}</h3>
                 <p className="mt-3 flex items-center gap-1.5 text-xs text-muted-foreground"><Clock className="size-3.5" /> {a.time}</p>
@@ -413,7 +413,7 @@ function HowItWorks() {
         {howPaths.map((path, pi) => (
           <article key={path.label} className="flex flex-col rounded-3xl border border-border bg-card p-8">
             <div className="flex items-center justify-between gap-4">
-              <span className={`rounded-full px-3 py-1 text-[11px] font-semibold ${pi === 1 ? "bg-lime text-lime-foreground" : "bg-surface text-muted-foreground"}`}>
+              <span className={`rounded-full px-3 py-1 text-xs font-semibold ${pi === 1 ? "bg-lime text-lime-foreground" : "bg-surface text-muted-foreground"}`}>
                 {path.label}
               </span>
               <h3 className="font-display text-xl font-bold">{path.title}</h3>
@@ -493,7 +493,7 @@ function Testimonials() {
       <div className="mt-10 grid gap-4 lg:grid-cols-[1.2fr_1fr]">
         <figure className="flex flex-col justify-between rounded-3xl border border-border bg-card p-8 sm:p-10">
           <div>
-            <span className={`rounded-full px-3 py-1 text-[11px] font-semibold ${t.side === "Profissional" ? "bg-lime text-lime-foreground" : "bg-surface text-muted-foreground"}`}>
+            <span className={`rounded-full px-3 py-1 text-xs font-semibold ${t.side === "Profissional" ? "bg-lime text-lime-foreground" : "bg-surface text-muted-foreground"}`}>
               {t.side}
             </span>
             <blockquote className="mt-6 font-display text-xl leading-snug font-bold sm:text-2xl">
@@ -532,7 +532,7 @@ function Testimonials() {
                 <div className="min-w-0">
                   <div className="flex items-center gap-2">
                     <p className="truncate font-display font-bold">{x.name}</p>
-                    <span className={`shrink-0 rounded-full px-2 py-0.5 text-[10px] font-semibold ${x.side === "Profissional" ? "bg-lime text-lime-foreground" : "bg-surface text-muted-foreground"}`}>{x.side}</span>
+                    <span className={`shrink-0 rounded-full px-2 py-0.5 text-xs font-semibold ${x.side === "Profissional" ? "bg-lime text-lime-foreground" : "bg-surface text-muted-foreground"}`}>{x.side}</span>
                   </div>
                   <p className="mt-1 line-clamp-2 text-sm leading-relaxed text-muted-foreground">"{x.quote}"</p>
                 </div>
@@ -552,7 +552,7 @@ function FpvCta() {
   ];
   return (
     <section className="relative overflow-hidden">
-      <img src={night} alt="Profissional olhando o celular em frente a um supermercado" loading="lazy" width={1600} height={912} className="h-[75vh] w-full object-cover" />
+      <img src={night} alt="Profissional olhando o celular em frente a um supermercado" loading="lazy" width={1600} height={912} className="h-[70vh] min-h-[520px] w-full object-cover" />
       <div className="absolute inset-0 bg-ink/40" />
       <div className="absolute inset-x-0 bottom-0 pb-14 text-center text-primary-foreground">
         <h2 className="font-display text-4xl font-bold sm:text-6xl">
@@ -560,7 +560,7 @@ function FpvCta() {
           <br />
           Está a um Toque.
         </h2>
-        <p className="mx-auto mt-3 max-w-sm text-sm text-primary-foreground/70">
+        <p className="mx-auto mt-4 max-w-md text-base text-primary-foreground/75">
           Crie seu perfil, ative os alertas e receba oportunidades perto de você.
         </p>
         <div className="mx-auto mt-8 flex max-w-xl flex-wrap justify-center gap-3 px-6">
@@ -568,7 +568,7 @@ function FpvCta() {
             <div key={s.k} className={`flex items-center gap-3 rounded-2xl px-5 py-3 text-left ${i === 2 ? "bg-lime text-lime-foreground" : "bg-card text-foreground"}`}>
               <div>
                 <p className="font-display text-lg font-extrabold">{s.k}</p>
-                <p className="text-[11px] font-medium opacity-70">{s.v}</p>
+                <p className="text-xs font-medium opacity-70">{s.v}</p>
               </div>
               <BadgeCheck className="size-4 opacity-70" />
             </div>
@@ -585,13 +585,13 @@ function Index() {
       <Nav />
       <Hero />
       <UseCases />
+      <HowItWorks />
+      <Products />
       <Guidance />
       <Moment />
-      <Products />
-      <Learn />
       <MoreThanStore />
-      <HowItWorks />
       <Testimonials />
+      <Learn />
       <FpvCta />
       <Footer />
     </main>

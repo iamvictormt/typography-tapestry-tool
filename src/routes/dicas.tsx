@@ -38,7 +38,7 @@ function Page() {
         <article className="relative overflow-hidden rounded-3xl">
           <img src={p2} alt="Profissional sorrindo" width={768} height={896} className="h-[60vh] w-full object-cover object-top" />
           <div className="absolute inset-x-4 bottom-4 max-w-lg rounded-2xl bg-ink/60 p-6 text-primary-foreground backdrop-blur">
-            <span className="rounded-full bg-lime px-3 py-1 text-[11px] font-semibold text-lime-foreground">Novo guia</span>
+            <span className="rounded-full bg-lime px-3 py-1 text-xs font-semibold text-lime-foreground">Novo guia</span>
             <h2 className="mt-3 font-display text-3xl font-bold">Sua Primeira Diária no Zup</h2>
             <p className="mt-1 text-sm text-primary-foreground/70">Cadastro, candidatura e o que levar no dia</p>
           </div>
@@ -48,7 +48,7 @@ function Page() {
             <article key={a.t} className="flex flex-col overflow-hidden rounded-3xl border border-border bg-card transition-colors hover:bg-surface">
               {a.img && <img src={a.img} alt={a.t} loading="lazy" width={896} height={1152} className="aspect-[16/10] w-full object-cover" />}
               <div className="flex flex-1 flex-col justify-between p-6">
-                <span className="w-fit rounded-full bg-surface px-3 py-1 text-[11px] font-medium text-muted-foreground">{a.tag}</span>
+                <span className="w-fit rounded-full bg-surface px-3 py-1 text-xs font-medium text-muted-foreground">{a.tag}</span>
                 <div>
                   <h3 className="mt-6 font-display text-lg leading-snug font-bold">{a.t}</h3>
                   <p className="mt-3 flex items-center gap-1.5 text-xs text-muted-foreground"><Clock className="size-3.5" /> {a.time} de leitura</p>
