@@ -32,10 +32,10 @@ export const Route = createFileRoute("/")({
 const wrap = "mx-auto max-w-[1320px] px-6";
 
 const shifts = [
-  { role: "Repositor", place: "Mercado Bom Preço", area: "Pinheiros", time: "07:00 – 15:00", day: "Sáb, 18", pay: 150, img: market },
-  { role: "Atendente de balcão", place: "Farmácia Vida", area: "Moema", time: "14:00 – 22:00", day: "Dom, 19", pay: 140, img: pharmacy },
-  { role: "Auxiliar de cozinha", place: "Cantina Nonna", area: "Bela Vista", time: "18:00 – 00:00", day: "Sex, 17", pay: 170, img: restaurant },
-  { role: "Padeiro", place: "Padaria Estrela", area: "Tatuapé", time: "04:00 – 10:00", day: "Seg, 20", pay: 180, img: market },
+  { role: "Repositor", place: "Mercado Bom Preço", category: "Supermercado", area: "Pinheiros", time: "07:00 – 15:00", day: "Sáb, 18", pay: 150, img: market },
+  { role: "Atendente de balcão", place: "Farmácia Vida", category: "Farmácia", area: "Moema", time: "14:00 – 22:00", day: "Dom, 19", pay: 140, img: pharmacy },
+  { role: "Auxiliar de cozinha", place: "Cantina Nonna", category: "Restaurante", area: "Bela Vista", time: "18:00 – 00:00", day: "Sex, 17", pay: 170, img: restaurant },
+  { role: "Padeiro", place: "Padaria Estrela", category: "Padaria", area: "Tatuapé", time: "04:00 – 10:00", day: "Seg, 20", pay: 180, img: market },
 ];
 
 const categories = ["Supermercados", "Padarias", "Farmácias", "Restaurantes", "Bares", "Hortifrútis", "Lanchonetes", "Açougues"];
