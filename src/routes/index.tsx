@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { ArrowRight, ArrowUpRight, Clock, MapPin, Plus, Star, Check } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Clock, MapPin, Plus, Star, Check, MessageCircle } from "lucide-react";
 import hero from "@/assets/zup-hero.jpg";
 import market from "@/assets/zup-market.jpg";
 import pharmacy from "@/assets/zup-pharmacy.jpg";
@@ -446,32 +446,76 @@ function Voices() {
 }
 
 const faqs = [
-  ["O Zup cobra do profissional?", "Não. Criar perfil e se candidatar é sempre grátis para profissionais."],
-  ["Como o estabelecimento paga a diária?", "O pagamento é combinado diretamente entre o estabelecimento e o profissional."],
-  ["Quais tipos de estabelecimento podem usar?", "Supermercados, padarias, farmácias, restaurantes e qualquer comércio que precise de reforço por turno."],
-  ["Em quanto tempo recebo interessados?", "Na maioria das cidades, os primeiros profissionais aparecem em poucos minutos após a publicação."],
+  ["O Zup cobra do profissional?", "Não. Criar perfil, ver as diárias e se candidatar é sempre grátis para quem trabalha."],
+  ["Como o estabelecimento paga a diária?", "O pagamento é combinado diretamente entre o estabelecimento e o profissional, antes do turno começar."],
+  ["Como escolho quem vai trabalhar?", "Você vê quem se candidatou, compara distância, experiência e avaliação, e conversa direto com quem interessa."],
+  ["Preciso ter experiência para me candidatar?", "Depende da diária. Cada anúncio lista os requisitos — tem vaga para quem nunca trabalhou no ramo e vaga que pede prática."],
+  ["Em quais cidades o Zup funciona?", "Começamos por São Paulo e abrimos cidades novas a cada mês. Cadastre seu bairro e a gente avisa quando chegar."],
+  ["Posso publicar mais de uma diária?", "Sim. Publique quantas precisar e repita uma diária antiga para o mesmo horário da semana seguinte."],
 ];
 
 function Faq() {
   const [open, setOpen] = useState(0);
   return (
-    <section id="duvidas" className={`${wrap} scroll-mt-20 pb-24 lg:pb-32`}>
-      <div className="grid gap-12 lg:grid-cols-12">
-        <div className="lg:col-span-4">
-          <p className="mb-4 text-sm font-medium text-muted-foreground">05 — Dúvidas</p>
-          <h2 className="font-display text-5xl leading-[1] font-bold tracking-tight">Perguntas frequentes</h2>
+    <section id="duvidas" className={`${wrap} scroll-mt-20 py-24 lg:py-32`}>
+      <div className="grid gap-8 lg:grid-cols-2 lg:items-end">
+        <h2 className="font-display text-5xl leading-[1] font-bold tracking-tight text-balance sm:text-6xl">
+          Perguntas que todo mundo faz <span className="text-lime">antes do primeiro turno.</span>
+        </h2>
+        <p className="max-w-md text-lg leading-relaxed text-muted-foreground text-pretty lg:pb-3">
+          Se a sua não estiver na lista, é só falar com a gente.
+        </p>
+      </div>
+
+      <div className="mt-14 grid gap-10 lg:grid-cols-12">
+        <div className="lg:col-span-7">
+          <div className="divide-y divide-border border-y border-border">
+            {faqs.map(([q, a], i) => {
+              const on = open === i;
+              return (
+                <div key={q}>
+                  <button
+                    onClick={() => setOpen(on ? -1 : i)}
+                    aria-expanded={on}
+                    className="group flex w-full items-center gap-5 py-6 text-left"
+                  >
+                    <span className={`font-display text-sm font-bold tabular-nums ${on ? "text-lime" : "text-muted-foreground/50"}`}>
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <span className={`flex-1 font-display text-xl leading-snug font-semibold transition-colors sm:text-2xl ${on ? "text-foreground" : "text-foreground/75 group-hover:text-foreground"}`}>
+                      {q}
+                    </span>
+                    <span className={`grid size-9 shrink-0 place-items-center rounded-full border transition-all duration-300 ${on ? "border-lime bg-lime text-lime-foreground" : "border-border text-muted-foreground group-hover:border-foreground/40"}`}>
+                      <Plus className={`size-4 transition-transform duration-300 ${on ? "rotate-45" : ""}`} />
+                    </span>
+                  </button>
+                  <div className={`grid transition-all duration-300 ease-out ${on ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"}`}>
+                    <div className="overflow-hidden">
+                      <p className="max-w-2xl pb-7 pl-11 leading-relaxed text-muted-foreground">{a}</p>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </div>
-        <div className="divide-y divide-border border-y border-border lg:col-span-8">
-          {faqs.map(([q, a], i) => (
-            <button key={q} onClick={() => setOpen(open === i ? -1 : i)} className="block w-full py-6 text-left">
-              <div className="flex items-center justify-between gap-6">
-                <span className="font-display text-xl font-semibold">{q}</span>
-                <Plus className={`size-5 shrink-0 transition-transform ${open === i ? "rotate-45" : ""}`} />
-              </div>
-              {open === i && <p className="mt-3 max-w-2xl leading-relaxed text-muted-foreground">{a}</p>}
-            </button>
-          ))}
-        </div>
+
+        <aside className="lg:col-span-5">
+          <div className="flex h-full flex-col justify-between gap-10 rounded-[1.75rem] bg-ink p-8 text-primary-foreground lg:p-10">
+            <MessageCircle className="size-7 text-lime" />
+            <div>
+              <h3 className="font-display text-3xl leading-tight font-bold text-balance sm:text-4xl">
+                Não achou a sua pergunta?
+              </h3>
+              <p className="mt-4 max-w-sm leading-relaxed text-primary-foreground/60">
+                Conta o que está faltando e a gente responde. Sem formulário longo, sem robô.
+              </p>
+            </div>
+            <a href="#comecar" className="inline-flex w-fit items-center gap-2 rounded-full bg-lime px-6 py-3.5 font-medium text-lime-foreground transition-transform hover:-translate-y-0.5">
+              Falar com o Zup <ArrowUpRight className="size-4" />
+            </a>
+          </div>
+        </aside>
       </div>
     </section>
   );
