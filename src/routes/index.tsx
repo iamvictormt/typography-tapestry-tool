@@ -457,7 +457,47 @@ function HowItWorks() {
   );
 }
 
+const testimonials = [
+  {
+    quote:
+      "Sábado à noite dois garçons faltaram. Publiquei a vaga no Zup de manhã e à tarde já tinha conversado com três pessoas. Hoje uso toda semana para reforçar a equipe.",
+    name: "Márcia Andrade",
+    role: "Dona da Cantina Nonna Lia",
+    side: "Estabelecimento",
+    img: p1,
+  },
+  {
+    quote:
+      "Preenchi um turno de reposição na terça e no dia seguinte já estava trabalhando. O anúncio dizia data, horário e valor — sem enrolação, sem intermediário.",
+    name: "Diego Ferreira",
+    role: "Repositor · 4 diárias no Zup",
+    side: "Profissional",
+    img: p2,
+  },
+  {
+    quote:
+      "Precisava de balconista para o plantão de domingo. Em duas horas tinha cinco candidaturas com perfil e experiência. Escolhi e conversei direto pelo WhatsApp.",
+    name: "Renata Gomes",
+    role: "Farmácia Vida Saudável",
+    side: "Estabelecimento",
+    img: hero,
+  },
+  {
+    quote:
+      "Faço diárias entre um freela e outro. Pelo Zup consigo ver só as vagas do meu bairro, filtrar pelo valor da diária e saber antes se o horário compensa.",
+    name: "Camila Duarte",
+    role: "Atendente · 11 diárias no Zup",
+    side: "Profissional",
+    img: p1,
+  },
+];
+
 function Testimonials() {
+  const [active, setActive] = useState(0);
+  const t = testimonials[active];
+  const prev = () => setActive((a) => (a - 1 + testimonials.length) % testimonials.length);
+  const next = () => setActive((a) => (a + 1) % testimonials.length);
+
   return (
     <section id="depoimentos" className="mx-auto max-w-[1400px] px-6 py-20">
       <Tag>Depoimentos</Tag>
@@ -471,42 +511,55 @@ function Testimonials() {
           Estabelecimentos e profissionais usam o Zup para se encontrar com mais rapidez e confiança.
         </p>
       </div>
-      <div className="mt-10 grid gap-4 lg:grid-cols-3">
-        <div className="flex flex-col gap-4">
-          <div className="grid grid-cols-3 gap-3">
-            {[p1, p2, hero].map((src, i) => (
-              <div key={i} className="relative overflow-hidden rounded-3xl">
-                <img src={src} alt="Usuário Zup" loading="lazy" width={600} height={700} className="aspect-[5/6] w-full object-cover object-top" />
-                <span className="absolute right-2 bottom-2 flex items-center gap-0.5 rounded-full bg-card px-2 py-0.5 text-[10px] font-semibold"><Star className="size-2.5 fill-lime text-lime" /> 5.0</span>
-              </div>
-            ))}
-          </div>
-          <div className="rounded-3xl border border-border bg-card p-8">
-            <p className="font-display text-4xl font-extrabold">1.200+</p>
-            <p className="mt-1 text-sm text-muted-foreground">Diárias conectadas</p>
-          </div>
-        </div>
-        <div className="relative overflow-hidden rounded-3xl">
-          <img src={p1} alt="Dona de restaurante" loading="lazy" width={768} height={896} className="h-full min-h-[300px] w-full object-cover object-top" />
-          <div className="absolute inset-x-4 bottom-4 flex gap-2">
-            <span className="grid size-9 place-items-center rounded-full bg-card"><ArrowLeft className="size-4" /></span>
-            <span className="grid size-9 place-items-center rounded-full bg-card"><ArrowRight className="size-4" /></span>
-          </div>
-        </div>
-        <figure className="flex flex-col justify-between rounded-3xl border border-border bg-card p-8">
+      <div className="mt-10 grid gap-4 lg:grid-cols-[1.2fr_1fr]">
+        <figure className="flex flex-col justify-between rounded-3xl border border-border bg-card p-8 sm:p-10">
           <div>
-            <figcaption className="font-display font-bold">Márcia Andrade</figcaption>
-            <p className="text-xs text-muted-foreground">Dona da Cantina Nonna Lia</p>
-            <blockquote className="mt-6 text-sm leading-relaxed text-muted-foreground">
-              "Sábado à noite dois garçons faltaram. Publiquei a vaga no Zup de manhã e à tarde já tinha
-              conversado com três pessoas. Hoje uso toda semana para reforçar a equipe."
+            <span className={`rounded-full px-3 py-1 text-[11px] font-semibold ${t.side === "Profissional" ? "bg-lime text-lime-foreground" : "bg-surface text-muted-foreground"}`}>
+              {t.side}
+            </span>
+            <blockquote className="mt-6 font-display text-xl leading-snug font-bold sm:text-2xl">
+              "{t.quote}"
             </blockquote>
           </div>
-          <div className="mt-8 flex items-center justify-between">
-            <div className="flex gap-1">{Array.from({ length: 5 }).map((_, i) => <Star key={i} className="size-4 fill-lime text-lime" />)}</div>
-            <span className="grid size-9 place-items-center rounded-full bg-lime text-lime-foreground"><ArrowUpRight className="size-4" /></span>
+          <div className="mt-10 flex flex-wrap items-end justify-between gap-6">
+            <figcaption className="flex items-center gap-4">
+              <img src={t.img} alt={t.name} loading="lazy" width={200} height={200} className="size-14 rounded-full object-cover object-top" />
+              <div>
+                <p className="font-display font-bold">{t.name}</p>
+                <p className="text-xs text-muted-foreground">{t.role}</p>
+                <div className="mt-1 flex gap-0.5">{Array.from({ length: 5 }).map((_, i) => <Star key={i} className="size-3.5 fill-lime text-lime" />)}</div>
+              </div>
+            </figcaption>
+            <div className="flex items-center gap-3">
+              <span className="text-xs font-medium text-muted-foreground">
+                {active + 1} / {testimonials.length}
+              </span>
+              <button onClick={prev} aria-label="Depoimento anterior" className="grid size-10 place-items-center rounded-full border border-border bg-card transition-colors hover:bg-surface">
+                <ArrowLeft className="size-4" />
+              </button>
+              <button onClick={next} aria-label="Próximo depoimento" className="grid size-10 place-items-center rounded-full bg-lime text-lime-foreground transition-transform hover:scale-105">
+                <ArrowRight className="size-4" />
+              </button>
+            </div>
           </div>
         </figure>
+        <div className="flex flex-col gap-4">
+          {testimonials
+            .filter((_, i) => i !== active)
+            .slice(0, 3)
+            .map((x) => (
+              <button key={x.name} onClick={() => setActive(testimonials.indexOf(x))} className="flex flex-1 items-center gap-5 rounded-3xl border border-border bg-card p-6 text-left transition-colors hover:bg-surface">
+                <img src={x.img} alt={x.name} loading="lazy" width={200} height={200} className="size-14 shrink-0 rounded-2xl object-cover object-top" />
+                <div className="min-w-0">
+                  <div className="flex items-center gap-2">
+                    <p className="truncate font-display font-bold">{x.name}</p>
+                    <span className={`shrink-0 rounded-full px-2 py-0.5 text-[10px] font-semibold ${x.side === "Profissional" ? "bg-lime text-lime-foreground" : "bg-surface text-muted-foreground"}`}>{x.side}</span>
+                  </div>
+                  <p className="mt-1 line-clamp-2 text-sm leading-relaxed text-muted-foreground">"{x.quote}"</p>
+                </div>
+              </button>
+            ))}
+        </div>
       </div>
     </section>
   );
