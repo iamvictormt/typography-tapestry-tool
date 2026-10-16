@@ -197,43 +197,77 @@ const flows = {
 
 function HowItWorks() {
   const [tab, setTab] = useState<keyof typeof flows>("empresa");
+  const [step, setStep] = useState(0);
   const f = flows[tab];
+  const img = tab === "empresa" ? market : p1;
   return (
     <section id="como-funciona" className={`${wrap} scroll-mt-20 py-24 lg:py-32`}>
-      <div className="flex flex-col justify-between gap-8 lg:flex-row lg:items-end">
-        <div>
+      <div className="grid gap-12 lg:grid-cols-[1fr_1fr] lg:gap-16">
+        <div className="flex flex-col">
           <p className="mb-4 text-sm font-medium text-muted-foreground">01 — Como funciona</p>
-          <h2 className="max-w-2xl font-display text-5xl leading-[1] font-bold tracking-tight text-balance sm:text-6xl">
+          <h2 className="max-w-xl font-display text-5xl leading-[1] font-bold tracking-tight text-balance sm:text-6xl">
             Três passos. Dos dois lados.
           </h2>
-        </div>
-        <div className="inline-flex rounded-full border border-border bg-card p-1">
-          {(Object.keys(flows) as (keyof typeof flows)[]).map((k) => (
-            <button
-              key={k}
-              onClick={() => setTab(k)}
-              className={`rounded-full px-5 py-2.5 text-sm font-medium transition-colors ${
-                tab === k ? "bg-ink text-primary-foreground" : "text-muted-foreground"
-              }`}
-            >
-              {flows[k].label}
-            </button>
-          ))}
-        </div>
-      </div>
+          <p className="mt-5 max-w-md text-lg leading-relaxed text-muted-foreground text-pretty">
+            Quem contrata e quem trabalha usam o mesmo Zup — cada um do seu jeito.
+          </p>
 
-      <div className="mt-14 grid gap-4 md:grid-cols-3">
-        {f.steps.map(([t, d], i) => (
-          <div key={t} className="group flex min-h-[300px] flex-col justify-between rounded-[1.75rem] bg-card p-8 transition-colors hover:bg-lime">
-            <span className="font-display text-7xl font-bold text-muted-foreground/30 group-hover:text-lime-foreground/40">
-              0{i + 1}
-            </span>
-            <div>
-              <h3 className="font-display text-2xl font-semibold">{t}</h3>
-              <p className="mt-3 leading-relaxed text-muted-foreground group-hover:text-lime-foreground/80">{d}</p>
+          <div className="mt-10 inline-flex w-fit rounded-full border border-border bg-card p-1">
+            {(Object.keys(flows) as (keyof typeof flows)[]).map((k) => (
+              <button
+                key={k}
+                onClick={() => { setTab(k); setStep(0); }}
+                className={`rounded-full px-5 py-2.5 text-sm font-medium transition-colors ${
+                  tab === k ? "bg-ink text-primary-foreground" : "text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                {flows[k].label}
+              </button>
+            ))}
+          </div>
+
+          <ol className="mt-8 divide-y divide-border border-y border-border">
+            {f.steps.map(([t, d], i) => {
+              const on = step === i;
+              return (
+                <li key={t}>
+                  <button onClick={() => setStep(i)} className="flex w-full gap-6 py-6 text-left">
+                    <span className={`grid size-12 shrink-0 place-items-center rounded-full font-display text-lg font-bold transition-colors ${on ? "bg-lime text-lime-foreground" : "bg-card text-muted-foreground"}`}>
+                      0{i + 1}
+                    </span>
+                    <span className="flex-1">
+                      <span className={`block font-display text-2xl font-semibold transition-colors ${on ? "text-foreground" : "text-muted-foreground"}`}>{t}</span>
+                      <span className={`grid transition-all duration-300 ${on ? "mt-2 grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"}`}>
+                        <span className="overflow-hidden leading-relaxed text-muted-foreground">{d}</span>
+                      </span>
+                    </span>
+                  </button>
+                </li>
+              );
+            })}
+          </ol>
+        </div>
+
+        <div className="relative min-h-[520px] overflow-hidden rounded-[2rem] bg-ink">
+          <img src={img} alt="" className="absolute inset-0 size-full object-cover opacity-80" />
+          <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/30 to-transparent" />
+          <div className="absolute top-6 left-6 rounded-full bg-card/90 px-4 py-2 text-sm font-medium backdrop-blur">
+            Passo 0{step + 1} de 03
+          </div>
+          <div className="absolute inset-x-6 bottom-6">
+            <div className="rounded-2xl bg-card p-6 text-card-foreground shadow-xl">
+              <div className="flex items-center gap-3">
+                <span className="grid size-9 place-items-center rounded-full bg-lime text-lime-foreground"><Check className="size-4" /></span>
+                <p className="font-display text-xl font-semibold">{f.steps[step]?.[0]}</p>
+              </div>
+              <div className="mt-5 flex gap-1.5">
+                {f.steps.map((_, i) => (
+                  <span key={i} className={`h-1.5 flex-1 rounded-full ${i <= step ? "bg-lime" : "bg-muted"}`} />
+                ))}
+              </div>
             </div>
           </div>
-        ))}
+        </div>
       </div>
     </section>
   );
@@ -242,12 +276,15 @@ function HowItWorks() {
 function Board() {
   const filters = ["Todas", "Supermercado", "Farmácia", "Restaurante", "Padaria"];
   const [active, setActive] = useState("Todas");
+  const list = shifts.filter((s) => active === "Todas" || s.category === active);
   return (
     <section id="diarias" className="scroll-mt-16 bg-ink py-24 text-primary-foreground lg:py-32">
       <div className={wrap}>
         <div className="grid gap-8 lg:grid-cols-2 lg:items-end">
           <div>
-            <p className="mb-4 text-sm font-medium text-primary-foreground/60">02 — Diárias abertas</p>
+            <p className="mb-4 flex items-center gap-2 text-sm font-medium text-primary-foreground/60">
+              <span className="size-2 animate-pulse rounded-full bg-lime" /> 02 — Diárias abertas
+            </p>
             <h2 className="font-display text-5xl leading-[1] font-bold tracking-tight sm:text-6xl">
               O quadro de turnos <span className="text-lime">ao vivo.</span>
             </h2>
@@ -258,7 +295,7 @@ function Board() {
                 key={f}
                 onClick={() => setActive(f)}
                 className={`rounded-full border px-4 py-2 text-sm transition-colors ${
-                  active === f ? "border-lime bg-lime text-lime-foreground" : "border-primary-foreground/20 text-primary-foreground/80"
+                  active === f ? "border-lime bg-lime text-lime-foreground" : "border-primary-foreground/20 text-primary-foreground/80 hover:border-primary-foreground/50"
                 }`}
               >
                 {f}
@@ -267,30 +304,29 @@ function Board() {
           </div>
         </div>
 
-        <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {shifts
-            .filter((s) => active === "Todas" || s.category === active)
-            .map((s) => (
-            <article key={s.role} className="group flex flex-col overflow-hidden rounded-[1.75rem] bg-card text-card-foreground">
-              <div className="relative h-44 overflow-hidden">
-                <img src={s.img} alt={s.place} className="size-full object-cover transition-transform duration-500 group-hover:scale-105" />
-                <span className="absolute top-3 left-3 rounded-full bg-card/90 px-3 py-1 text-xs font-medium backdrop-blur">{s.category}</span>
-                <span className="absolute top-3 right-3 rounded-full bg-lime px-3 py-1 text-xs font-semibold text-lime-foreground">{s.day}</span>
+        <div className="mt-14 grid gap-4 md:grid-cols-2">
+          {list.map((s) => (
+            <article key={s.role} className="group grid grid-cols-[120px_1fr] overflow-hidden rounded-[1.75rem] bg-card text-card-foreground sm:grid-cols-[180px_1fr]">
+              <div className="relative overflow-hidden">
+                <img src={s.img} alt={s.place} className="absolute inset-0 size-full object-cover transition-transform duration-500 group-hover:scale-105" />
               </div>
-              <div className="flex flex-1 flex-col p-6">
-                <h3 className="font-display text-xl font-semibold">{s.role}</h3>
-                <p className="mt-1 text-sm text-muted-foreground">{s.place}</p>
-                <div className="mt-5 space-y-2 text-sm text-muted-foreground">
-                  <p className="flex items-center gap-2"><Clock className="size-4" /> {s.time}</p>
-                  <p className="flex items-center gap-2"><MapPin className="size-4" /> {s.area}</p>
+              <div className="flex flex-col p-6">
+                <div className="flex items-center justify-between gap-3">
+                  <span className="rounded-full bg-muted px-3 py-1 text-xs font-medium">{s.category}</span>
+                  <span className="text-xs font-semibold text-muted-foreground">{s.day}</span>
                 </div>
-                <div className="mt-auto flex items-end justify-between border-t border-border pt-5 mt-6">
-                  <div>
-                    <p className="text-xs text-muted-foreground">Diária</p>
-                    <p className="font-display text-2xl font-bold">R$ {s.pay}</p>
-                  </div>
-                  <a href="#comecar" aria-label={`Candidatar-se: ${s.role}`} className="grid size-11 place-items-center rounded-full bg-ink text-primary-foreground transition-colors group-hover:bg-lime group-hover:text-lime-foreground">
-                    <ArrowUpRight className="size-5" />
+                <h3 className="mt-4 font-display text-2xl font-semibold leading-tight">{s.role}</h3>
+                <p className="mt-1 text-sm text-muted-foreground">{s.place}</p>
+                <div className="mt-4 flex flex-wrap gap-x-5 gap-y-1 text-sm text-muted-foreground">
+                  <span className="flex items-center gap-1.5"><Clock className="size-4" /> {s.time}</span>
+                  <span className="flex items-center gap-1.5"><MapPin className="size-4" /> {s.area}</span>
+                </div>
+                <div className="mt-6 flex items-center justify-between border-t border-dashed border-border pt-5">
+                  <p className="font-display text-3xl font-bold">
+                    R$ {s.pay}<span className="ml-1 text-sm font-medium text-muted-foreground">/diária</span>
+                  </p>
+                  <a href="#comecar" className="inline-flex items-center gap-1.5 rounded-full bg-ink px-4 py-2.5 text-sm font-semibold text-primary-foreground transition-colors group-hover:bg-lime group-hover:text-lime-foreground">
+                    Candidatar <ArrowUpRight className="size-4" />
                   </a>
                 </div>
               </div>
@@ -304,6 +340,7 @@ function Board() {
     </section>
   );
 }
+
 
 function Manifesto() {
   const stats = [
