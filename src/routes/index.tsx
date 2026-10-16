@@ -7,6 +7,7 @@ import pharmacy from "@/assets/zup-pharmacy.jpg";
 import restaurant from "@/assets/zup-restaurant.jpg";
 import p1 from "@/assets/zup-p1.jpg";
 import p2 from "@/assets/zup-p2.jpg";
+import why from "@/assets/zup-why.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
