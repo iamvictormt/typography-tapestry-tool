@@ -416,8 +416,17 @@ const voices = [
 function Voices() {
   return (
     <section id="depoimentos" className={`${wrap} scroll-mt-20 pb-24 lg:pb-32`}>
-      <p className="mb-10 text-sm font-medium text-muted-foreground">04 — Quem usa</p>
-      <div className="grid gap-4 lg:grid-cols-2">
+      <p className="mb-4 text-sm font-medium text-muted-foreground">04 — Quem usa</p>
+      <div className="grid gap-8 lg:grid-cols-2 lg:items-end">
+        <h2 className="font-display text-5xl leading-[1] font-bold tracking-tight text-balance sm:text-6xl">
+          Quem já trocou um turno, <span className="text-lime">conta melhor.</span>
+        </h2>
+        <p className="max-w-md text-lg leading-relaxed text-muted-foreground text-pretty lg:pb-3">
+          Histórias de quem precisou de reforço e de quem quis trabalhar naquele dia.
+        </p>
+      </div>
+
+      <div className="mt-14 grid gap-4 lg:grid-cols-2">
         {voices.map((v, i) => (
           <figure key={v.n} className={`flex flex-col justify-between gap-12 rounded-[1.75rem] p-8 lg:p-10 ${i === 0 ? "bg-lime text-lime-foreground" : "bg-card"}`}>
             <div className="flex gap-1">{Array.from({ length: 5 }).map((_, k) => <Star key={k} className="size-4 fill-current" />)}</div>
