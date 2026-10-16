@@ -457,76 +457,34 @@ function Faq() {
 function FinalCta() {
   return (
     <section id="comecar" className={`${wrap} scroll-mt-20 py-24 lg:py-32`}>
-      <div className="grid gap-8 lg:grid-cols-2 lg:items-end">
-        <div>
-          <p className="mb-4 text-sm font-medium text-muted-foreground">05 — Começar</p>
-          <h2 className="font-display text-5xl leading-[1] font-bold tracking-tight text-balance sm:text-6xl">
-            Escolha o seu lado e <span className="text-lime">comece agora.</span>
-          </h2>
-        </div>
-        <p className="max-w-md text-lg leading-relaxed text-muted-foreground text-pretty lg:pb-3">
-          Dos dois lados, levar menos de dois minutos é o normal.
+      <div className="relative overflow-hidden rounded-[2.5rem] bg-ink px-6 py-20 text-center text-primary-foreground sm:px-12 lg:px-20 lg:py-28">
+        <div className="pointer-events-none absolute -top-32 left-1/2 h-72 w-[46rem] -translate-x-1/2 rounded-full bg-lime/25 blur-[110px]" />
+        <div className="pointer-events-none absolute inset-x-10 bottom-0 h-px bg-gradient-to-r from-transparent via-lime/40 to-transparent" />
+
+        <p className="relative mb-7 flex items-center justify-center gap-2.5 text-sm font-medium text-primary-foreground/50">
+          <span className="size-2 animate-pulse rounded-full bg-lime" /> 05 — Começar
         </p>
-      </div>
 
-      <div className="mt-14 grid gap-6 lg:grid-cols-2">
-        <article className="group flex flex-col overflow-hidden rounded-[2rem] bg-ink text-primary-foreground">
-          <div className="h-52 overflow-hidden lg:h-64">
-            <img src={p1} alt="Profissional em loja" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
-          </div>
-          <div className="flex flex-1 flex-col justify-between gap-10 p-8 lg:p-10">
-            <div>
-              <p className="text-sm font-medium text-primary-foreground/60">Para profissionais</p>
-              <h3 className="mt-4 font-display text-4xl leading-[1.05] font-bold tracking-tight text-balance sm:text-5xl">
-                Seu próximo turno está a uma rua.
-              </h3>
-              <ul className="mt-7 space-y-3">
-                {[
-                  "Perfil em dois minutos, sem currículo",
-                  "Diárias perto de casa, filtradas por categoria",
-                  "Candidate-se e converse direto com o comércio",
-                ].map((t) => (
-                  <li key={t} className="flex items-start gap-3 text-primary-foreground/70">
-                    <Check className="mt-1 size-4 shrink-0 text-lime" />
-                    <span className="leading-snug">{t}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <a href="#top" className="inline-flex w-fit items-center gap-2 rounded-full bg-lime px-6 py-3.5 font-medium text-lime-foreground transition-transform hover:-translate-y-0.5">
-              Criar perfil grátis <ArrowUpRight className="size-4" />
-            </a>
-          </div>
-        </article>
+        <h2 className="relative mx-auto max-w-4xl font-display text-5xl leading-[0.95] font-bold tracking-[-0.03em] text-balance sm:text-7xl lg:text-8xl">
+          O turno de amanhã <span className="text-lime">começa hoje.</span>
+        </h2>
 
-        <article className="group flex flex-col overflow-hidden rounded-[2rem] bg-lime text-lime-foreground">
-          <div className="h-52 overflow-hidden lg:h-64">
-            <img src={market} alt="Comércio" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
-          </div>
-          <div className="flex flex-1 flex-col justify-between gap-10 p-8 lg:p-10">
-            <div>
-              <p className="text-sm font-medium opacity-70">Para estabelecimentos</p>
-              <h3 className="mt-4 font-display text-4xl leading-[1.05] font-bold tracking-tight text-balance sm:text-5xl">
-                Cubra a escala ainda hoje.
-              </h3>
-              <ul className="mt-7 space-y-3">
-                {[
-                  "Publique função, data, horário e valor",
-                  "Veja quem se candidatou, perto ou longe",
-                  "Escolha, combine e pague direto",
-                ].map((t) => (
-                  <li key={t} className="flex items-start gap-3 opacity-80">
-                    <Check className="mt-1 size-4 shrink-0" />
-                    <span className="leading-snug">{t}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <a href="#top" className="inline-flex w-fit items-center gap-2 rounded-full bg-ink px-6 py-3.5 font-medium text-primary-foreground transition-transform hover:-translate-y-0.5">
-              Publicar uma diária <ArrowUpRight className="size-4" />
-            </a>
-          </div>
-        </article>
+        <p className="relative mx-auto mt-8 max-w-xl text-lg leading-relaxed text-primary-foreground/60 text-pretty">
+          Publique uma diária ou crie seu perfil. Leva menos de dois minutos, dos dois lados.
+        </p>
+
+        <div className="relative mt-12 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center">
+          <a href="#top" className="group inline-flex items-center justify-center gap-2 rounded-full bg-lime px-8 py-5 text-lg font-semibold text-lime-foreground transition-transform hover:-translate-y-0.5">
+            Quero trabalhar <ArrowUpRight className="size-5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+          </a>
+          <a href="#top" className="group inline-flex items-center justify-center gap-2 rounded-full border border-primary-foreground/25 px-8 py-5 text-lg font-semibold transition-colors hover:border-lime hover:text-lime">
+            Quero contratar <ArrowUpRight className="size-5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+          </a>
+        </div>
+
+        <p className="relative mt-9 text-sm text-primary-foreground/40">
+          Grátis para profissionais · Sem currículo · Pagamento combinado direto
+        </p>
       </div>
     </section>
   );
